@@ -1,0 +1,73 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Models.ViewModels.BreweryViewModel
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#tableBeers').dataTable({
+            "bProcessing": true,
+            "bServerSide": true,
+            "sAjaxSource": "/Beer/GetByBrewery/@Model.ID",
+            "bPaginate": false,
+            "bFilter": false,
+            "bInfo": false,
+            "aoColumnDefs": [{
+                "aTargets": [0],
+                "fnRender": function (o, val) {
+                    console.log(o.aData);
+                    return "<a href='/Beer/Details/" + o.aData[4] + "'>" + val + "</a>";
+                }
+            }]
+        });
+    });
+</script>
+<section>
+    <div class="container">
+        <div class="details">
+            <div class="row">
+                <div class="span8">
+                    <div class="details-header">
+                        <a href="#">
+                            <img class="details-favorite" alt="Favorite" src="~/Content/images/favorite.png" /></a>
+
+                        <div class="header-container">
+                            <h5>@Html.DisplayTextFor(x => x.Name)</h5>
+                            <div class="details-meta">
+                                <strong>@Html.DisplayTextFor(x => x.Locality)</strong><br />
+                                <i>@Html.DisplayTextFor(x => x.Region)</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="details-content">
+                        <ul>
+                            <li><a href=@Model.Uri>@Model.Uri</a></li>
+                            <li><a href="tel:@Model.Phone">@Model.Phone</a></li>
+                        </ul>
+                        @Html.DisplayTextFor(x => x.Description)
+                    </div>
+                </div>
+                <div class="span3">
+                    <img class="img-polaroid" alt="@(Model.Name)" src="~/Content/images/beertoast.jpg" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container" style="text-align: center;">
+    <h2>Beers</h2>
+</div>
+<section>
+    <div class="container">
+        <table class="table table-bordered table-striped" id="tableBeers">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Style</th>
+                    <th>ABV %</th>
+                    <th>Rating</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</section>

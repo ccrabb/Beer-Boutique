@@ -1,0 +1,76 @@
+﻿@using Newtonsoft.Json
+@model Models.ViewModels.BeerViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<section>
+    <div class="container">
+        <div class="details">
+            <div class="row">
+                <div class="span8">
+                    <div class="details-header">
+                        <div class="header-container">
+                            <h5>@Html.DisplayTextFor(x => x.Name)</h5>
+                            <div class="rateit" id="rateDiv"></div>
+                            <div class="details-meta">
+                                <strong><a href=@Url.Action("Details", "Brewery", new { id = Model.BreweryID })>@Model.Brewery</a></strong><br />
+                                <i>@Html.DisplayTextFor(x => x.Location)</i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="details-content">
+                        <ul>
+                            <li>@Html.DisplayFor(x => x.Style)</li>
+                            <li>@Html.DisplayFor(x => x.ABV, new { data_bind = "text: ABV" })% ABV</li>
+                            <li>@Html.DisplayFor(x => x.IBU, new { data_bind = "value: IBU" }) IBU</li>
+                            <li>@Html.DisplayFor(x => x.SRM, new { data_bind = "value: SRM" }) SRM</li>
+                        </ul>
+                        @Html.DisplayTextFor(x => x.Description)
+                    </div>
+                </div>
+                <div class="span3">
+                    <img class="img-polaroid" alt="@(Model.Name)" src="~/Content/images/beertoast.jpg" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <div style="text-align: center;">
+            <h2>Similar Beers</h2>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span4">
+                @{ Html.RenderPartial("_Summary", Model.SimilarBeers[0]); }
+            </div>
+            <div class="span4">
+                @{ Html.RenderPartial("_Summary", Model.SimilarBeers[1]); }
+            </div>
+            <div class="span4">
+                @{ Html.RenderPartial("_Summary", Model.SimilarBeers[2]); }
+            </div>
+        </div>
+    </div>
+</section>
+@Html.HiddenFor(x => x.ID, new { id = "hiddenID" })
+<script type="text/javascript">
+    $('#rateDiv').bind('rated', function (event, value) {
+        var beerId = $("#hiddenID").val();
+        alert(value);
+        $.ajax({
+            url: '@Url.Action("Rate", "Rating")',
+            data: { beerId: beerId, score: value }, 
+            type: 'POST',
+            success: function (data) {
+                alert('Success');
+
+            },
+            error: function (jxhr, msg, err) {
+                alert('Error');
+            }
+        });
+    });
+</script>

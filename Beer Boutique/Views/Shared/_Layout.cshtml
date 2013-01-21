@@ -1,0 +1,116 @@
+﻿@using BeerBoutique
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Scripts.Render(BundleConfig.SCRIPT_KNOCKOUTJS)
+    @Scripts.Render(BundleConfig.SCRIPT_JQUERY)
+    @Scripts.Render(BundleConfig.SCRIPT_DATATABLE)
+    @Scripts.Render(BundleConfig.SCRIPT_BOOTSTRAP)
+
+    @Styles.Render(BundleConfig.STYLE_BOOTSTRAP)
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <a class="brand" href=@Url.Action("Index", "Home")>GOMBUI</a>
+                <div class="nav-collapse collapse">
+                    <ul class="nav">
+                        <li class="active"><a href=@Url.Action("Index", "Home")>Home</a></li>
+                        <li><a href=@Url.Action("Index", "Beer")>Beers</a></li>
+                        <li><a href=@Url.Action("Index", "Brewery")>Breweries</a></li>
+                        <li><a href=@Url.Action("Index", "Home")>Styles</a></li>
+                        <li><a href=@Url.Action("Index", "Home")>Account</a></li>
+                    </ul>
+                    <form class="navbar-search pull-left" action="">
+                        <input id="searchBox" type="text" class="search-query span4" placeholder="Search" data-provide="typeahead">
+                    </form>
+                    <ul class="nav pull-right">
+                        <li><a href=@Url.Action("Index", "Home")>Log In</a></li>
+                        <li><a href=@Url.Action("Index", "Home")>Sign Up</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    @{
+        if (ViewBag.ErrorMessage != null)
+        {
+        <div class="alert alert-error">
+            <a class="close" data-dismiss="alert">×</a>
+            <strong>Error!</strong> @ViewBag.ErrorMessage
+        </div>
+        }
+    }
+    @{
+        if (ViewBag.SuccessMessage != null)
+        {
+        <div class="alert alert-success">
+            <a class="close" data-dismiss="alert">×</a>
+            <strong>Success!</strong> @ViewBag.SuccessMessage
+        </div>
+        }
+    }
+    @{
+        if (ViewBag.InfoMessage != null)
+        {
+        <div class="alert alert-info">
+            <a class="close" data-dismiss="alert">×</a>
+            <strong>Info!</strong> @ViewBag.InfoMessage
+        </div>
+        }
+    }
+    @RenderBody()
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="span12" style="text-align: center;">
+                    Copyright &copy; 2013 Cory Crabb
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#searchBox").typeahead({
+                minLength: 1,
+                source: function (query, process) {
+                    $.post('/Search', { q: query, limit: 15 }, function (data) {
+                        var searchResults = [];
+                        window.map = {};
+
+
+                        $.each(data, function (i, result) {
+                            window.map[result.Name] = result;
+                            searchResults.push(result.Name);
+                        });
+
+                        process(searchResults);
+                    });
+                },
+                updater: function (item) {
+                    var result = map[item];
+                    var url = '';
+                    if (result.SearchType == 'Beer') {
+                        url = '@Url.Action("Details", "Beer", new { id = "__id__" })';
+                    } else {
+                        url = '@Url.Action("Details", "Brewery", new { id = "__id__" })';
+                    }
+                    url = url.replace('__id__', result.ID);
+                    window.location.href = url;
+
+                }
+            });
+        });
+    </script>
+</body>
+</html>

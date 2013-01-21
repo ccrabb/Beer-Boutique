@@ -1,0 +1,23 @@
+﻿@model Models.ViewModels.BeerViewModel
+<div class="details">
+    <div class="details-header">
+        <a href="#">
+            <img class="details-favorite" alt="Favorite" src="~/Content/images/beermug.png" /></a>
+
+        <div class="header-container">
+            <h5><a href=@Url.Action("Details", new { id = Model.ID })>@Html.DisplayTextFor(x => x.Name)</a></h5>
+            <div class="details-meta">
+                <strong><a href=@Url.Action("Details", "Brewery", new { id = Model.BreweryID })>@Model.Brewery</a></strong><br />
+                <i>@Html.DisplayTextFor(x => x.Location)</i>
+            </div>
+        </div>
+    </div>
+    <div class="details-content">
+        <ul>
+            <li>@Html.DisplayTextFor(x => x.Style)</li>
+            <li>@Html.DisplayTextFor(x => x.ABV)% ABV</li>
+            <li>@Html.DisplayTextFor(x => x.IBU) IBU</li>
+            <li>@Html.DisplayTextFor(x => x.SRM) SRM</li>
+        </ul>
+    </div>
+</div>
