@@ -55,9 +55,9 @@
     <Compile Include="SearchFacade\SearchFacade.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
+    <ProjectReference Include="..\Common\Yeast.csproj">
       <Project>{dbeafee8-e7d8-4a54-bba7-10ad7ba02ad4}</Project>
-      <Name>Common</Name>
+      <Name>Yeast</Name>
     </ProjectReference>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{342bcb28-f5b5-4ecb-8399-c04ed9cbb0f4}</Project>

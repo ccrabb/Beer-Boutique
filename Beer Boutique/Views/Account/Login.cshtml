@@ -1,0 +1,44 @@
+﻿@model BeerBoutique.Models.Account.LoginModel
+
+@{
+    ViewBag.Title = "Log in";
+}
+
+<section>
+    <div class="container">
+        @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+    </div>
+</section>
+<section>
+    <div class="container">
+        @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <fieldset>
+                <legend>Log in Form</legend>
+                <ul class="unstyled">
+                    <li>
+                        @Html.TextBoxFor(m => m.UserName, new { placeholder = "User Name" })
+                        @Html.ValidationMessageFor(m => m.UserName)</li>
+                    <li>
+                        @Html.PasswordFor(m => m.Password, new { placeholder = "Password" })
+                        @Html.ValidationMessageFor(m => m.Password)</li>
+                    <li>
+                        @Html.CheckBoxFor(m => m.RememberMe, new { @class = "yeasty" })
+                        @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+                    </li>
+                </ul>
+                <input type="submit" value="Log in" class="btn btn-medium" />
+            </fieldset>
+            <p>
+                @Html.ActionLink("Register", "Register") if you don't have an account.
+            </p>
+        }
+    </div>
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

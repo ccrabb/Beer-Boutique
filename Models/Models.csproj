@@ -79,6 +79,7 @@
     <Compile Include="Contact.cs">
       <DependentUpon>BeerBoutique.tt</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Beer.cs" />
     <Compile Include="Models\Brewery.cs" />
     <Compile Include="Models\Search.cs" />
@@ -89,11 +90,38 @@
     <Compile Include="SearchAll_Result.cs">
       <DependentUpon>BeerBoutique.tt</DependentUpon>
     </Compile>
+    <Compile Include="SimpleMembership.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SimpleMembership.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SimpleMembership.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SimpleMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SimpleMembership.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SimpleMembership.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Style.cs">
       <DependentUpon>BeerBoutique.tt</DependentUpon>
     </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>SimpleMembership.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\BeerViewModel.cs" />
     <Compile Include="ViewModels\BreweryViewModel.cs" />
+    <Compile Include="webpages_Membership.cs">
+      <DependentUpon>SimpleMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="webpages_OAuthMembership.cs">
+      <DependentUpon>SimpleMembership.tt</DependentUpon>
+    </Compile>
+    <Compile Include="webpages_Roles.cs">
+      <DependentUpon>SimpleMembership.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="BeerBoutique.edmx">
@@ -117,6 +145,23 @@
       <LastGenOutput>BeerBoutique.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
+    <EntityDeploy Include="SimpleMembership.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SimpleMembership.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="SimpleMembership.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SimpleMembership.edmx</DependentUpon>
+      <LastGenOutput>SimpleMembership.Context.cs</LastGenOutput>
+    </None>
+    <None Include="SimpleMembership.edmx.diagram">
+      <DependentUpon>SimpleMembership.edmx</DependentUpon>
+    </None>
+    <None Include="SimpleMembership.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SimpleMembership.edmx</DependentUpon>
+      <LastGenOutput>SimpleMembership.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

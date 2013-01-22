@@ -14,6 +14,7 @@ using Facades;
 using Facades.BeerFacade;
 using Facades.BreweryFacade;
 using Facades.SearchFacade;
+using WebMatrix.WebData;
 
 namespace BeerBoutique
 {
@@ -30,7 +31,9 @@ namespace BeerBoutique
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            AuthConfig.RegisterAuth();
 
+            WebSecurity.InitializeDatabaseConnection("BeerBoutique","Users", "UserID", "UserName", false);
             RegisterDependencies();
         }
 

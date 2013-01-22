@@ -12,17 +12,20 @@ namespace BeerBoutique
         public static string SCRIPT_BOOTSTRAP = "~/bundles/bootstrap";
         public static string SCRIPT_DATATABLE = "~/bundles/datatable";
         public static string SCRIPT_KNOCKOUTJS = "~/bundles/knockoutjs";
+        public static string SCRIPT_YEAST = "~/styles/yeast";
         public static string STYLE_JQUERY = "~/styles/css";
         public static string STYLE_BOOTSTRAP = "~/styles/bootstrap";
 
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle(SCRIPT_YEAST).Include("~/Scripts/Script.js"));
+
             bundles.Add(new ScriptBundle(SCRIPT_JQUERY).Include("~/Scripts/jquery-{version}.js", "~/Scripts/jquery.rateit.js"));
 
             bundles.Add(new ScriptBundle(SCRIPT_JQUERYUI).Include("~/Scripts/jquery-ui-{version}.js"));
 
-            bundles.Add(new ScriptBundle(SCRIPT_JQUERYVAL).Include("~/Scripts/jquery.unobtrusive*", "~/Scripts/jquery.validate*"));
+            bundles.Add(new ScriptBundle(SCRIPT_JQUERYVAL).Include("~/Scripts/jquery.validate*", "~/Scripts/jquery.unobtrusive*"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.

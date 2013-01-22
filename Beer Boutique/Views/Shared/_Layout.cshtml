@@ -9,6 +9,7 @@
     @Scripts.Render(BundleConfig.SCRIPT_JQUERY)
     @Scripts.Render(BundleConfig.SCRIPT_DATATABLE)
     @Scripts.Render(BundleConfig.SCRIPT_BOOTSTRAP)
+    @Scripts.Render(BundleConfig.SCRIPT_YEAST)
 
     @Styles.Render(BundleConfig.STYLE_BOOTSTRAP)
 </head>
@@ -33,43 +34,44 @@
                     <form class="navbar-search pull-left" action="">
                         <input id="searchBox" type="text" class="search-query span4" placeholder="Search" data-provide="typeahead">
                     </form>
-                    <ul class="nav pull-right">
-                        <li><a href=@Url.Action("Index", "Home")>Log In</a></li>
-                        <li><a href=@Url.Action("Index", "Home")>Sign Up</a></li>
-                    </ul>
                 </div>
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
-    @{
-        if (ViewBag.ErrorMessage != null)
-        {
-        <div class="alert alert-error">
-            <a class="close" data-dismiss="alert">×</a>
-            <strong>Error!</strong> @ViewBag.ErrorMessage
-        </div>
+    <div class="container">
+        @{
+            if (ViewBag.ErrorMessage != null)
+            {
+            <div class="alert alert-error">
+                <a class="close" data-dismiss="alert">×</a>
+                <strong>Error!</strong> @ViewBag.ErrorMessage
+            </div>
+            }
         }
-    }
-    @{
-        if (ViewBag.SuccessMessage != null)
-        {
-        <div class="alert alert-success">
-            <a class="close" data-dismiss="alert">×</a>
-            <strong>Success!</strong> @ViewBag.SuccessMessage
-        </div>
+        @{
+            if (ViewBag.SuccessMessage != null)
+            {
+            <div class="alert alert-success">
+                <a class="close" data-dismiss="alert">×</a>
+                <strong>Success!</strong> @ViewBag.SuccessMessage
+            </div>
+            }
         }
-    }
-    @{
-        if (ViewBag.InfoMessage != null)
-        {
-        <div class="alert alert-info">
-            <a class="close" data-dismiss="alert">×</a>
-            <strong>Info!</strong> @ViewBag.InfoMessage
-        </div>
+        @{
+            if (ViewBag.InfoMessage != null)
+            {
+            <div class="alert alert-info">
+                <a class="close" data-dismiss="alert">×</a>
+                <strong>Info!</strong> @ViewBag.InfoMessage
+            </div>
+            }
         }
-    }
+        <div id="alert"></div>
+
+    </div>
     @RenderBody()
-    <footer>
+    @*<footer>
         <div class="container">
             <div class="row">
                 <div class="span12" style="text-align: center;">
@@ -77,7 +79,7 @@
                 </div>
             </div>
         </div>
-    </footer>
+    </footer>*@
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -112,5 +114,6 @@
             });
         });
     </script>
+    @RenderSection("scripts", false)
 </body>
 </html>

@@ -1,0 +1,34 @@
+﻿@using BeerBoutique.Models.Account
+@model ICollection<BeerBoutique.Models.Account.ExternalLogin>
+
+@if (Model.Count > 0)
+{
+    <h3>Remove external logins</h3>
+    <table>
+        <tbody>
+        @foreach (ExternalLogin externalLogin in Model)
+        {
+            <tr>
+                <td>
+                    @if (ViewBag.ShowRemoveButton)
+                    {
+                        using (Html.BeginForm("Disassociate", "Account"))
+                        {
+                            @Html.AntiForgeryToken()
+                            <fieldset>
+                                @Html.Hidden("provider", externalLogin.Provider)
+                                @Html.Hidden("providerUserId", externalLogin.ProviderUserId)
+                                <input type="submit" value="Remove @externalLogin.ProviderDisplayName" title="Remove this @externalLogin.ProviderDisplayName credential from your account" class="btn-danger" style="vertical-align: middle;" />
+                            </fieldset>
+                        }
+                    }
+                    else
+                    {
+                        @: &nbsp;
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

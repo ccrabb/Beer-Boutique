@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
-using Common.Constants;
+using Yeast.Constants;
 using Models.ViewModels;
 
 namespace BeerBoutique.ApiControllers

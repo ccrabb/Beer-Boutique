@@ -1,4 +1,6 @@
-﻿@using Newtonsoft.Json
+﻿
+@using BeerBoutique
+@using Newtonsoft.Json
 @model Models.ViewModels.BeerViewModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -59,17 +61,20 @@
 <script type="text/javascript">
     $('#rateDiv').bind('rated', function (event, value) {
         var beerId = $("#hiddenID").val();
-        alert(value);
         $.ajax({
             url: '@Url.Action("Rate", "Rating")',
-            data: { beerId: beerId, score: value }, 
+            data: { beerId: beerId, score: value },
             type: 'POST',
+            statusCode: {
+                404: function () {
+                    window.bootstrap_alert.error('@Html.Raw(Alerts.ALERT_UNAUTHORIZED)');
+                }
+            },
             success: function (data) {
-                alert('Success');
-
+                window.bootstrap_alert.success('@Html.Raw(Alerts.ALERT_RATING)');
             },
             error: function (jxhr, msg, err) {
-                alert('Error');
+                window.bootstrap_alert.error('@Html.Raw(Alerts.ALERT_ERROR)');
             }
         });
     });

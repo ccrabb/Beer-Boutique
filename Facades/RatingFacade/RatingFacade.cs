@@ -9,14 +9,14 @@ namespace Facades.RatingFacade
 {
     public class RatingFacade : BaseFacade, IRatingFacade
     {
-        public bool Rate(int beerId, double score)
+        public bool Rate(int beerId, double score, int userId)
         {
             var context = new BeerBoutiqueEntities();
             context.Ratings.Add(new Rating()
             {
                 BeerID = beerId,
                 Overall = score,
-                UserID = 0
+                UserID = userId
             });
 
             context.SaveChanges();
