@@ -1,18 +1,19 @@
 ﻿@using BeerBoutique
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-    @Scripts.Render(BundleConfig.SCRIPT_KNOCKOUTJS)
-    @Scripts.Render(BundleConfig.SCRIPT_JQUERY)
-    @Scripts.Render(BundleConfig.SCRIPT_DATATABLE)
-    @Scripts.Render(BundleConfig.SCRIPT_BOOTSTRAP)
-    @Scripts.Render(BundleConfig.SCRIPT_YEAST)
+    <head>
+        <link rel="SHORTCUT ICON" href="@Url.Content("~/Content/images/favicon.ico")"/>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <title>@ViewBag.Title</title>
+        @Scripts.Render(BundleConfig.SCRIPT_KNOCKOUTJS)
+        @Scripts.Render(BundleConfig.SCRIPT_JQUERY)
+        @Scripts.Render(BundleConfig.SCRIPT_DATATABLE)
+        @Scripts.Render(BundleConfig.SCRIPT_BOOTSTRAP)
+        @Scripts.Render(BundleConfig.SCRIPT_YEAST)
 
-    @Styles.Render(BundleConfig.STYLE_BOOTSTRAP)
-</head>
+        @Styles.Render(BundleConfig.STYLE_BOOTSTRAP)
+    </head>
 <body>
     <div class="navbar">
         <div class="navbar-inner">
@@ -34,8 +35,8 @@
                     <form class="navbar-search pull-left" action="">
                         <input id="searchBox" type="text" class="search-query span4" placeholder="Search" data-provide="typeahead">
                     </form>
-                </div>
                     @Html.Partial("_LoginPartial")
+                </div>
             </div>
         </div>
     </div>

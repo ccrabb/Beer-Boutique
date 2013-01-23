@@ -213,6 +213,7 @@
     <Content Include="Content\images\datatable\sort_desc.png" />
     <Content Include="Content\images\datatable\sort_desc_disabled.png" />
     <Content Include="Content\images\delete.gif" />
+    <Content Include="Content\images\favicon.ico" />
     <Content Include="Content\images\favorite.png" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
