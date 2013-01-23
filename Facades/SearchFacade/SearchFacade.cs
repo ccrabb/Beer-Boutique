@@ -10,9 +10,9 @@ namespace Facades.SearchFacade
 {
     public class SearchFacade : BaseFacade, ISearchFacade
     {
-        public IEnumerable<SearchAll_Result> Search(string query, string userID = null, int limit = 15) {
+        public IEnumerable<SearchAllAzure_Result> Search(string query, string userID = null, int limit = 15) {
             using (var context = new BeerBoutiqueEntities()) {
-                return context.SearchAll(query, userID).Take(limit).ToList();
+                return context.SearchAllAzure(query, userID).Take(limit).ToList();
             }
         }
     }

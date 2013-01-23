@@ -9,6 +9,6 @@ using Models.Models;
 namespace Facades.SearchFacade
 {
     public interface ISearchFacade {
-        IEnumerable<SearchAll_Result> Search(string query, string userID, int limit);
+        IEnumerable<SearchAllAzure_Result> Search(string query, string userID, int limit);
     }
 }

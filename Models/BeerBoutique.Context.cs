@@ -75,5 +75,18 @@ namespace Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SearchAll_Result>("SearchAll", queryParameter, userIDParameter);
         }
+    
+        public virtual ObjectResult<SearchAllAzure_Result> SearchAllAzure(string query, string userID)
+        {
+            var queryParameter = query != null ?
+                new ObjectParameter("query", query) :
+                new ObjectParameter("query", typeof(string));
+    
+            var userIDParameter = userID != null ?
+                new ObjectParameter("userID", userID) :
+                new ObjectParameter("userID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SearchAllAzure_Result>("SearchAllAzure", queryParameter, userIDParameter);
+        }
     }
 }

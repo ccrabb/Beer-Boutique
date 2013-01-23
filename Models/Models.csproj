@@ -89,6 +89,9 @@
     <Compile Include="Rating.cs">
       <DependentUpon>BeerBoutique.tt</DependentUpon>
     </Compile>
+    <Compile Include="SearchAllAzure_Result.cs">
+      <DependentUpon>BeerBoutique.tt</DependentUpon>
+    </Compile>
     <Compile Include="SearchAll_Result.cs">
       <DependentUpon>BeerBoutique.tt</DependentUpon>
     </Compile>

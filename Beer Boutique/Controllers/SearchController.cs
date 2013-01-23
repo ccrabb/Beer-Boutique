@@ -15,8 +15,7 @@ namespace BeerBoutique.Controllers
 
         public JsonResult Index(string q, int limit) {
             if (String.IsNullOrWhiteSpace(q)) {
-                //throw new ArgumentNullException("q");
-                return null;
+                throw new ArgumentNullException("q");
             }
 
             var searchController = new SearchFacade();

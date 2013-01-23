@@ -239,6 +239,10 @@
           <Parameter Name="query" Type="varchar" Mode="In" />
           <Parameter Name="userID" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="SearchAllAzure" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="query" Type="varchar" Mode="In" />
+          <Parameter Name="userID" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="SearchBeer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="query" Type="varchar" Mode="In" />
           <Parameter Name="userID" Type="varchar" Mode="In" />
@@ -297,6 +301,10 @@
             <Parameter Name="userID" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="SearchAll" ReturnType="Collection(BeerBoutiqueModel.SearchAll_Result)">
+            <Parameter Name="query" Mode="In" Type="String" />
+            <Parameter Name="userID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SearchAllAzure" ReturnType="Collection(BeerBoutiqueModel.SearchAllAzure_Result)">
             <Parameter Name="query" Mode="In" Type="String" />
             <Parameter Name="userID" Mode="In" Type="String" />
           </FunctionImport>
@@ -513,6 +521,12 @@
           <Property Type="String" Name="Name" Nullable="false" MaxLength="255" />
           <Property Type="String" Name="Description" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="SearchAllAzure_Result">
+          <Property Type="Int32" Name="SearchType" Nullable="false" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Description" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -640,6 +654,16 @@
           <FunctionImportMapping FunctionImportName="SearchAll" FunctionName="BeerBoutiqueModel.Store.SearchAll" >
             <ResultMapping>
               <ComplexTypeMapping TypeName="BeerBoutiqueModel.SearchAll_Result">
+                <ScalarProperty Name="SearchType" ColumnName="SearchType" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SearchAllAzure" FunctionName="BeerBoutiqueModel.Store.SearchAllAzure">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BeerBoutiqueModel.SearchAllAzure_Result">
                 <ScalarProperty Name="SearchType" ColumnName="SearchType" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
