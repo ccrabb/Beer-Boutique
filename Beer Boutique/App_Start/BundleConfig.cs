@@ -13,8 +13,8 @@ namespace BeerBoutique
         public static string SCRIPT_DATATABLE = "~/bundles/datatable";
         public static string SCRIPT_KNOCKOUTJS = "~/bundles/knockoutjs";
         public static string SCRIPT_YEAST = "~/styles/yeast";
-        public static string STYLE_JQUERY = "~/styles/css";
-        public static string STYLE_BOOTSTRAP = "~/styles/bootstrap";
+        public static string STYLE_JQUERY = "~/Content/themes/base";
+        public static string STYLE_BOOTSTRAP = "~/Content/bootstrap";
 
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
         public static void RegisterBundles(BundleCollection bundles)
