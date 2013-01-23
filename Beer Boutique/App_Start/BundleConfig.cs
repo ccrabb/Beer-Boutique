@@ -22,9 +22,11 @@ namespace BeerBoutique
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
         public static void RegisterBundles(BundleCollection bundles)
         {
+            //TODO: Consolidate bundles where possible
             bundles.Add(new ScriptBundle(SCRIPT_YEAST).Include("~/Scripts/Script.js"));
 
-            bundles.Add(new ScriptBundle(SCRIPT_JQUERY).Include("~/Scripts/jquery-{version}.js"));
+            //TODO: PLZ DOLAN NO
+            bundles.Add(new ScriptBundle(SCRIPT_JQUERY).Include("~/Scripts/jquery-1.8.3.js"));
 
             bundles.Add(new ScriptBundle(SCRIPT_JQUERYUI).Include("~/Scripts/jquery-ui-{version}.js"));
 
