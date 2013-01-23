@@ -16,7 +16,7 @@ div.rateit div.rateit-range
     position: relative;
     display: -moz-inline-box;
     display: inline-block;
-    background: url("Content/images/star.gif");
+    background: url("images/star.gif");
     height: 16px;
 }
 

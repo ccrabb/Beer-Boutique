@@ -12,6 +12,7 @@ namespace BeerBoutique
         public static string SCRIPT_BOOTSTRAP = "~/bundles/bootstrap";
         public static string SCRIPT_DATATABLE = "~/bundles/datatable";
         public static string SCRIPT_KNOCKOUTJS = "~/bundles/knockoutjs";
+        public static string SCRIPT_RATEIT = "~/bundles/rateit";
         public static string SCRIPT_YEAST = "~/styles/yeast";
         public static string STYLE_JQUERY = "~/Content/themes/base";
         public static string STYLE_BOOTSTRAP = "~/Content/bootstrap";
@@ -23,7 +24,7 @@ namespace BeerBoutique
         {
             bundles.Add(new ScriptBundle(SCRIPT_YEAST).Include("~/Scripts/Script.js"));
 
-            bundles.Add(new ScriptBundle(SCRIPT_JQUERY).Include("~/Scripts/jquery-{version}.js", "~/Scripts/jquery.rateit.js"));
+            bundles.Add(new ScriptBundle(SCRIPT_JQUERY).Include("~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle(SCRIPT_JQUERYUI).Include("~/Scripts/jquery-ui-{version}.js"));
 
@@ -38,6 +39,8 @@ namespace BeerBoutique
             bundles.Add(new ScriptBundle(SCRIPT_DATATABLE).Include("~/Scripts/jquery.dataTables.js"));
 
             bundles.Add(new ScriptBundle(SCRIPT_KNOCKOUTJS).Include("~/Scripts/knockout-{version}.js", "~/Scripts/knockout.mapping-latest.js"));
+
+            bundles.Add(new ScriptBundle(SCRIPT_RATEIT).Include("~/Scripts/jquery.rateit.js"));
 
             bundles.Add(new StyleBundle(STYLE_JQUERY).Include(
                         "~/Content/themes/base/jquery.ui.core.css",
