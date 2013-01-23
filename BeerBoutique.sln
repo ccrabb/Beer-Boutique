@@ -20,6 +20,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{E7044D
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AzureDependencies", "AzureDependencies", "{60558BFE-539A-4C09-BBC2-E3198B3C60B8}"
+	ProjectSection(SolutionItems) = preProject
+		AzureDependencies\WebMatrix.Data.dll = AzureDependencies\WebMatrix.Data.dll
+		AzureDependencies\WebMatrix.WebData.dll = AzureDependencies\WebMatrix.WebData.dll
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
