@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using Facades.BeerFacade;
+using Yeast.Constants;
 
 namespace BeerBoutique.Controllers
 {
@@ -96,7 +97,38 @@ namespace BeerBoutique.Controllers
                             x.Name,
                             x.Style,
                             x.ABV.ToString(),
-                            10.ToString(),
+                            x.AverageOverall.ToString(),
+                            x.ID.ToString()
+                        })
+
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetTop(BeerStyle? style = null)
+        {
+            int echo = 0;
+            if (Request["sEcho"] != null)
+            {
+                if (!Int32.TryParse(Request["sEcho"], out echo))
+                {
+                    throw new HttpRequestException("XSS Attack possibly attempted");
+                }
+            }
+
+            var beerFacade = new BeerFacade();
+            var res = beerFacade.Top(style);
+
+            return Json(new
+            {
+                iTotalRecords = res.Count(),
+                iTotalDisplayRecords = res.Count(),
+                sEcho = echo,
+                aaData = res.Select(x => new[]
+                        {
+                            x.Name,
+                            x.Style,
+                            x.ABV.ToString(),
+                            x.AverageOverall.ToString(),
                             x.ID.ToString()
                         })
 

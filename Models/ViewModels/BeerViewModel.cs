@@ -32,6 +32,8 @@ namespace Models.ViewModels
         public string Description { get; set; }
         [DataMember]
         public int BreweryID { get; set; }
+        [DataMember]
+        public double? AverageOverall { get; set; }
 
         [DataMember]
         public List<BeerViewModel> SimilarBeers { get; set; }
@@ -52,6 +54,7 @@ namespace Models.ViewModels
             SRM = beer.SRM;
             Description = beer.Description;
             FullStyle = String.Join(" / ", Category, Style);
+            AverageOverall = beer.Ratings.Average(x => x.Overall);
         }
     }
 }

@@ -6,7 +6,7 @@ using System.ComponentModel;
 
 namespace Yeast.Constants
 {
-    public enum Style : int
+    public enum BeerStyle : int
     {
         [Description("Unknown")]
         Unknown = -1,

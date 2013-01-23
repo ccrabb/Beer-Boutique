@@ -22,7 +22,7 @@ using System.Runtime.Serialization;
 using System.ComponentModel;
 
 namespace Yeast.Constants {
-    public enum Style : int
+    public enum BeerStyle : int
     {
 		<#	SqlConnection sqlConnection = new SqlConnection(@"server=NULLDEV;database=BeerBoutique;integrated security=True;");
 			sqlConnection.Open();

@@ -41,7 +41,7 @@ namespace BeerBoutique.ApiControllers
         }
 
         [HttpGet]
-        public IEnumerable<BeerViewModel> ByStyle(Style style) {
+        public IEnumerable<BeerViewModel> ByStyle(BeerStyle style) {
             var beers = _beerFacade.GetByStyle((int)style);
 
             return beers;
@@ -72,5 +72,12 @@ namespace BeerBoutique.ApiControllers
         public void Delete(int id)
         {
         }
+
+        [HttpGet]
+        public IEnumerable<BeerViewModel> Top(BeerStyle? style = null) {
+            var beers = _beerFacade.Top(style);
+
+            return beers;
+        } 
     }
 }

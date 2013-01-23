@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Models;
 using Models.ViewModels;
+using Yeast.Constants;
 
 namespace Facades.BeerFacade
 {
@@ -48,6 +49,25 @@ namespace Facades.BeerFacade
                 oldBeer.SRM = b.SRM;
                 context.SaveChanges();
                 return true;
+            }
+        }
+
+        public List<BeerViewModel> Top(BeerStyle? style) {
+            using (var context = new BeerBoutiqueEntities()) {
+                var t = context.Ratings.GroupBy(x => x.Beer).Select(y => new
+                {
+                    BeerID = y.Key.ID,
+                    AverageOverall = y.Average(z => z.Overall)
+                }).OrderBy(x => x.AverageOverall).Take(10);
+
+                var b = new List<BeerViewModel>();
+                foreach (var a in t) {
+                    b.Add(new BeerViewModel(context.Beers.SingleOrDefault(x => x.ID == a.BeerID)));
+                }
+
+                //var beers = context.Beers.Join(t, Beers => Beers.ID, Ratings => Ratings.BeerID, (beer, rating) => new BeerViewModel(beer)).ToList();
+
+                return b;
             }
         }
 

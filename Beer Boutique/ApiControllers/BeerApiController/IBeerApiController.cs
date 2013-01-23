@@ -12,7 +12,7 @@ namespace BeerBoutique.ApiControllers
     {
         IEnumerable<BeerViewModel> Get();
         BeerViewModel Get(int id);
-        IEnumerable<BeerViewModel> ByStyle(Style style);
+        IEnumerable<BeerViewModel> ByStyle(BeerStyle style);
         IEnumerable<BeerViewModel> ByBrewery(int id, int take = 0, int skip = 0);
         void Post([FromBody] string value);
         void Put(int id, [FromBody] string value);
