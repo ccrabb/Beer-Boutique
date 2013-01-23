@@ -11,16 +11,17 @@ namespace Facades.RatingFacade
     {
         public bool Rate(int beerId, double score, int userId)
         {
-            var context = new BeerBoutiqueEntities();
-            context.Ratings.Add(new Rating()
-            {
-                BeerID = beerId,
-                Overall = score,
-                UserID = userId
-            });
+            using (var context = new BeerBoutiqueEntities()) {
+                context.Ratings.Add(new Rating()
+                {
+                    BeerID = beerId,
+                    Overall = score,
+                    UserID = userId
+                });
 
-            context.SaveChanges();
-            return true;
+                context.SaveChanges();
+                return true;
+            }
         }
     }
 }

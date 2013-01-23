@@ -18,8 +18,8 @@ namespace BeerBoutique.Controllers
                 throw new ArgumentNullException("q");
             }
 
-            var searchController = new SearchFacade();
-            var results = searchController.Search(q, null, limit).Select(x => new
+            var searchFacade = new SearchFacade();
+            var results = searchFacade.Search(q, null, limit).Select(x => new
             {
                 ID = x.ID,
                 Name = x.Name,

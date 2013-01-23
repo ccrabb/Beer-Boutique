@@ -54,7 +54,8 @@ namespace Models.ViewModels
             SRM = beer.SRM;
             Description = beer.Description;
             FullStyle = String.Join(" / ", Category, Style);
-            AverageOverall = beer.Ratings.Average(x => x.Overall);
+            if(beer.Ratings != null)
+                AverageOverall = beer.Ratings.Average(x => x.Overall);
         }
     }
 }
