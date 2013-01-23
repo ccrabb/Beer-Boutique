@@ -15,6 +15,8 @@ namespace BeerBoutique
         public static string SCRIPT_YEAST = "~/styles/yeast";
         public static string STYLE_JQUERY = "~/Content/themes/base";
         public static string STYLE_BOOTSTRAP = "~/Content/bootstrap";
+        public static string STYLE_RATEIT = "~/Content/rateit";
+        public static string STYLE_YEAST = "~/Content/Yeast";
 
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
         public static void RegisterBundles(BundleCollection bundles)
@@ -51,7 +53,9 @@ namespace BeerBoutique
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
 
-            bundles.Add(new StyleBundle(STYLE_BOOTSTRAP).Include("~/Content/bootstrap.css", "~/Content/bootstrap-responsive.css", "~/Content/Site.css", "~/Content/rateit.css"));
+            bundles.Add(new StyleBundle(STYLE_BOOTSTRAP).Include("~/Content/bootstrap.css", "~/Content/bootstrap-responsive.css"));
+            bundles.Add(new StyleBundle(STYLE_YEAST).Include("~/Content/Site.css"));
+            bundles.Add(new StyleBundle(STYLE_RATEIT).Include("~/Content/rateit.css"));
         }
     }
 }
