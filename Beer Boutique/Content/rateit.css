@@ -69,22 +69,22 @@ div.rateit div.rateit-preset
     background: url("images/star.gif") left -48px;
 }
 
-/*div.rateit div.rateit-preset-rtl
+div.rateit div.rateit-preset-rtl
 {
-    background: url(star.gif) left -48px;
-}*/
+    background: url("images/star.gif") left -48px;
+}
 
-/*div.rateit div.rateit-reset
+div.rateit div.rateit-reset
 {
-    background: url(delete.gif) 0 0;
+    background: url("images/delete.gif") 0 0;
     width: 16px;
     height: 16px;
     display: -moz-inline-box;
     display: inline-block;
     float: left;
-}*/
+}
 
-/*div.rateit div.rateit-reset:hover
+div.rateit div.rateit-reset:hover
 {
     background-position: 0 -16px;
-}*/
+}

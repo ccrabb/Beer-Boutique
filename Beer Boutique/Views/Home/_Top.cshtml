@@ -1,9 +1,11 @@
-﻿@model IEnumerable<Models.ViewModels.BeerViewModel>
+﻿@using BeerBoutique
+@model IEnumerable<Models.ViewModels.BeerViewModel>
 <script type="text/javascript">
 
     $(document).ready(function () {
         $('#tableBeers').dataTable({
-            "bProcessing": true,
+            "bProcessing": false,
+            "bSort": false,
             "bServerSide": true,
             "sAjaxSource": "/Beer/GetTop",
             "bPaginate": false,
@@ -12,10 +14,18 @@
             "aoColumnDefs": [{
                 "aTargets": [0],
                 "fnRender": function (o, val) {
-                    console.log(o.aData);
                     return "<a href='/Beer/Details/" + o.aData[4] + "'>" + val + "</a>";
                 }
-            }]
+            },
+            {
+                "aTargets": [3],
+                "fnRender": function (o, val) {
+                    return "<div class='rateit' data-rateit-value='" + val/2 + "' data-rateit-ispreset='true' data-rateit-readonly='true' title='" + val + "'></div>";
+                }
+            }],
+            "fnInitComplete" : function(oSettings, json) {
+                $(".rateit").rateit();
+            }
         });
     });
 </script>

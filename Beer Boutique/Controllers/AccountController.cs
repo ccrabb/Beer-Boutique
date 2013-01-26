@@ -319,7 +319,6 @@ namespace BeerBoutique.Controllers
                         });
 
                         membershipEntities.SaveChanges();
-
                         OAuthWebSecurity.CreateOrUpdateAccount(provider, providerUserId, model.UserName);
                         OAuthWebSecurity.Login(provider, providerUserId, createPersistentCookie: false);
 

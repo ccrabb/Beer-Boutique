@@ -628,7 +628,7 @@
 						/* Rendering */
 						if ( bRender )
 						{
-							sRendered = _fnRender( oSettings, iRow, iColumn );
+						    sRendered = _fnRender(oSettings, iRow, iColumn);
 							nCell.innerHTML = sRendered;
 							if ( oCol.bUseRendered )
 							{

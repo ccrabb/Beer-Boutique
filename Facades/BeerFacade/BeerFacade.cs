@@ -67,7 +67,7 @@ namespace Facades.BeerFacade
 
                 //var beers = context.Beers.Join(t, Beers => Beers.ID, Ratings => Ratings.BeerID, (beer, rating) => new BeerViewModel(beer)).ToList();
 
-                return b;
+                return b.OrderByDescending(x => x.AverageOverall).ToList();
             }
         }
 

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
+using BeerBoutique.Yeast;
+using DotNetOpenAuth.AspNet;
+using DotNetOpenAuth.AspNet.Clients;
 using Microsoft.Web.WebPages.OAuth;
 
 namespace BeerBoutique
@@ -16,6 +19,10 @@ namespace BeerBoutique
             //OAuthWebSecurity.RegisterMicrosoftClient(
             //    clientId: "",
             //    clientSecret: "");
+
+            //OAuthWebSecurity.RegisterClient(
+            //    new CustomFacebookClient(ConfigurationManager.AppSettings["FacebookAppID"], ConfigurationManager.AppSettings["FacebookAppSecret"]), "facebook", null);
+
 
             OAuthWebSecurity.RegisterFacebookClient(
                 appId: ConfigurationManager.AppSettings["FacebookAppID"],

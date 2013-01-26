@@ -55,7 +55,7 @@ namespace Models.ViewModels
             Description = beer.Description;
             FullStyle = String.Join(" / ", Category, Style);
             if(beer.Ratings != null)
-                AverageOverall = beer.Ratings.Average(x => x.Overall);
+                AverageOverall = Math.Round(beer.Ratings.Average(x => x.Overall).GetValueOrDefault(), 1);
         }
     }
 }
