@@ -16,8 +16,6 @@
             </a>
             <ul class="dropdown-menu">
                 <li>@Html.ActionLink("My Profile", "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })</li>
-                <li><a tabindex="-1" href="#">My Beers</a></li>
-                <li><a tabindex="-1" href="#">Options</a></li>
                 <li class="divider"></li>
                 <li>
                     @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))

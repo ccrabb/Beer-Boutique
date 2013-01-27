@@ -2,7 +2,17 @@
 @{
     Layout = null;
 }
+@for (var i = 0; i < Model.Count(); i++) {
+    if (i % 2 == 0) {
+        @:<div class="row-fluid" style="margin-bottom:5px;">
+    }
 
-@foreach (var review in Model) {
-    Html.RenderPartial("_ReviewDetail", review);
+    <div class="span6" style="border: 1px solid #DDD">
+        @{ Html.RenderPartial("_ReviewDetail", Model.ElementAt(i)); }
+    </div>
+
+    if (i % 2 > 0) {
+        @:</div>
+    }
 }
+
