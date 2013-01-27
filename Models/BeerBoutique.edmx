@@ -13,7 +13,9 @@
           <EntitySet Name="Category" EntityType="BeerBoutiqueModel.Store.Category" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Contact" EntityType="BeerBoutiqueModel.Store.Contact" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Rating" EntityType="BeerBoutiqueModel.Store.Rating" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Review" EntityType="BeerBoutiqueModel.Store.Review" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Style" EntityType="BeerBoutiqueModel.Store.Style" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="BeerBoutiqueModel.Store.Users" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_Beer_Brewery" Association="BeerBoutiqueModel.Store.FK_Beer_Brewery">
             <End Role="Brewery" EntitySet="Brewery" />
             <End Role="Beer" EntitySet="Beer" />
@@ -37,6 +39,18 @@
           <AssociationSet Name="FK_Rating_Beer" Association="BeerBoutiqueModel.Store.FK_Rating_Beer">
             <End Role="Beer" EntitySet="Beer" />
             <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rating_Users" Association="BeerBoutiqueModel.Store.FK_Rating_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Rating" EntitySet="Rating" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_Beer" Association="BeerBoutiqueModel.Store.FK_Review_Beer">
+            <End Role="Beer" EntitySet="Beer" />
+            <End Role="Review" EntitySet="Review" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_Users" Association="BeerBoutiqueModel.Store.FK_Review_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Review" EntitySet="Review" />
           </AssociationSet>
           <AssociationSet Name="FK_Style_Category" Association="BeerBoutiqueModel.Store.FK_Style_Category">
             <End Role="Category" EntitySet="Category" />
@@ -132,13 +146,26 @@
           <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="BeerID" Type="int" Nullable="false" />
-          <Property Name="Simple" Type="int" />
-          <Property Name="Appearance" Type="int" />
-          <Property Name="Aroma" Type="int" />
-          <Property Name="Taste" Type="int" />
           <Property Name="Overall" Type="float" />
           <Property Name="Created" Type="datetime" />
           <Property Name="Modified" Type="timestamp" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="BeerID" Type="int" Nullable="false" />
+          <Property Name="AppearanceScore" Type="float" />
+          <Property Name="AppearanceDescription" Type="nvarchar(max)" />
+          <Property Name="AromaScore" Type="float" />
+          <Property Name="AromaDescription" Type="nvarchar(max)" />
+          <Property Name="TasteScore" Type="float" />
+          <Property Name="TasteDescription" Type="nvarchar(max)" />
+          <Property Name="OverallDescription" Type="nvarchar(max)" />
+          <Property Name="Created" Type="datetime" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Modified" Type="timestamp" Nullable="false" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="Style">
           <Key>
@@ -150,6 +177,14 @@
           <Property Name="Timestamp" Type="datetime" Nullable="false" />
           <Property Name="OldCategoryID" Type="int" />
           <Property Name="OldID" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="56" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
         </EntityType>
         <Association Name="FK_Beer_Brewery">
           <End Role="Brewery" Type="BeerBoutiqueModel.Store.Brewery" Multiplicity="1" />
@@ -220,6 +255,42 @@
             </Principal>
             <Dependent Role="Rating">
               <PropertyRef Name="BeerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rating_Users">
+          <End Role="Users" Type="BeerBoutiqueModel.Store.Users" Multiplicity="1" />
+          <End Role="Rating" Type="BeerBoutiqueModel.Store.Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_Beer">
+          <End Role="Beer" Type="BeerBoutiqueModel.Store.Beer" Multiplicity="1" />
+          <End Role="Review" Type="BeerBoutiqueModel.Store.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="BeerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_Users">
+          <End Role="Users" Type="BeerBoutiqueModel.Store.Users" Multiplicity="1" />
+          <End Role="Review" Type="BeerBoutiqueModel.Store.Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="UserID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -308,6 +379,20 @@
             <Parameter Name="query" Mode="In" Type="String" />
             <Parameter Name="userID" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="Users" EntityType="BeerBoutiqueModel.User" />
+          <AssociationSet Name="FK_Rating_Users" Association="BeerBoutiqueModel.FK_Rating_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Rating" EntitySet="Ratings" />
+          </AssociationSet>
+          <EntitySet Name="Reviews" EntityType="BeerBoutiqueModel.Review" />
+          <AssociationSet Name="FK_Review_Beer" Association="BeerBoutiqueModel.FK_Review_Beer">
+            <End Role="Beer" EntitySet="Beers" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Review_Users" Association="BeerBoutiqueModel.FK_Review_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Review" EntitySet="Reviews" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Address">
           <Key>
@@ -346,6 +431,7 @@
           <NavigationProperty Name="Brewery" Relationship="BeerBoutiqueModel.FK_Beer_Brewery" FromRole="Beer" ToRole="Brewery" />
           <NavigationProperty Name="Style" Relationship="BeerBoutiqueModel.FK_Beer_Style" FromRole="Beer" ToRole="Style" />
           <NavigationProperty Name="Ratings" Relationship="BeerBoutiqueModel.FK_Rating_Beer" FromRole="Beer" ToRole="Rating" />
+          <NavigationProperty Name="Reviews" Relationship="BeerBoutiqueModel.FK_Review_Beer" FromRole="Beer" ToRole="Review" />
         </EntityType>
         <EntityType Name="Brewery">
           <Key>
@@ -409,14 +495,11 @@
           <Property Name="ID" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
           <Property Name="UserID" Type="Int32" Nullable="false" />
           <Property Name="BeerID" Type="Int32" Nullable="false" />
-          <Property Name="Simple" Type="Int32" />
-          <Property Name="Appearance" Type="Int32" />
-          <Property Name="Aroma" Type="Int32" />
-          <Property Name="Taste" Type="Int32" />
           <Property Name="Overall" Type="Double" />
-          <Property Name="Created" Type="DateTime" Precision="3" />
-          <Property Name="Modified" Type="Binary" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" />
+          <Property Name="Created" Type="DateTime" Precision="3" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="Modified" Type="Binary" MaxLength="8" FixedLength="true" p1:StoreGeneratedPattern="Computed" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
           <NavigationProperty Name="Beer" Relationship="BeerBoutiqueModel.FK_Rating_Beer" FromRole="Rating" ToRole="Beer" />
+          <NavigationProperty Name="User" Relationship="BeerBoutiqueModel.FK_Rating_Users" FromRole="Rating" ToRole="User" />
         </EntityType>
         <EntityType Name="Style">
           <Key>
@@ -527,6 +610,71 @@
           <Property Type="String" Name="Name" Nullable="false" MaxLength="255" />
           <Property Type="String" Name="Description" Nullable="true" />
         </ComplexType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Type="Int32" Name="UserID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="56" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Email" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Ratings" Relationship="BeerBoutiqueModel.FK_Rating_Users" FromRole="User" ToRole="Rating" />
+          <NavigationProperty Name="Reviews" Relationship="BeerBoutiqueModel.FK_Review_Users" FromRole="User" ToRole="Review" />
+        </EntityType>
+        <Association Name="FK_Rating_Users">
+          <End Type="BeerBoutiqueModel.User" Role="User" Multiplicity="1" />
+          <End Type="BeerBoutiqueModel.Rating" Role="Rating" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Rating">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Review">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="UserID" Nullable="false" />
+          <Property Type="Int32" Name="BeerID" Nullable="false" />
+          <Property Type="Double" Name="AppearanceScore" />
+          <Property Type="String" Name="AppearanceDescription" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Double" Name="AromaScore" />
+          <Property Type="String" Name="AromaDescription" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Double" Name="TasteScore" />
+          <Property Type="String" Name="TasteDescription" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="OverallDescription" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="Created" Nullable="false" Precision="3" annotation:StoreGeneratedPattern="Identity" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Type="Binary" Name="Modified" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Beer" Relationship="BeerBoutiqueModel.FK_Review_Beer" FromRole="Review" ToRole="Beer" />
+          <NavigationProperty Name="User" Relationship="BeerBoutiqueModel.FK_Review_Users" FromRole="Review" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Review_Beer">
+          <End Type="BeerBoutiqueModel.Beer" Role="Beer" Multiplicity="1" />
+          <End Type="BeerBoutiqueModel.Review" Role="Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Beer">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="BeerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Review_Users">
+          <End Type="BeerBoutiqueModel.User" Role="User" Multiplicity="1" />
+          <End Type="BeerBoutiqueModel.Review" Role="Review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Review">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -627,10 +775,6 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="UserID" ColumnName="UserID" />
                 <ScalarProperty Name="BeerID" ColumnName="BeerID" />
-                <ScalarProperty Name="Simple" ColumnName="Simple" />
-                <ScalarProperty Name="Appearance" ColumnName="Appearance" />
-                <ScalarProperty Name="Aroma" ColumnName="Aroma" />
-                <ScalarProperty Name="Taste" ColumnName="Taste" />
                 <ScalarProperty Name="Overall" ColumnName="Overall" />
                 <ScalarProperty Name="Created" ColumnName="Created" />
                 <ScalarProperty Name="Modified" ColumnName="Modified" />
@@ -671,6 +815,33 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="BeerBoutiqueModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reviews">
+            <EntityTypeMapping TypeName="BeerBoutiqueModel.Review">
+              <MappingFragment StoreEntitySet="Review">
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="OverallDescription" ColumnName="OverallDescription" />
+                <ScalarProperty Name="TasteDescription" ColumnName="TasteDescription" />
+                <ScalarProperty Name="TasteScore" ColumnName="TasteScore" />
+                <ScalarProperty Name="AromaDescription" ColumnName="AromaDescription" />
+                <ScalarProperty Name="AromaScore" ColumnName="AromaScore" />
+                <ScalarProperty Name="AppearanceDescription" ColumnName="AppearanceDescription" />
+                <ScalarProperty Name="AppearanceScore" ColumnName="AppearanceScore" />
+                <ScalarProperty Name="BeerID" ColumnName="BeerID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

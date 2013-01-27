@@ -16,13 +16,15 @@ namespace Models
     {
         public User()
         {
-            this.webpages_Roles = new HashSet<webpages_Roles>();
+            this.Ratings = new HashSet<Rating>();
+            this.Reviews = new HashSet<Review>();
         }
     
         public int UserID { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
     
-        public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }
+        public virtual ICollection<Rating> Ratings { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

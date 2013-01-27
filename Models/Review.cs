@@ -12,14 +12,20 @@ namespace Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Rating
+    public partial class Review
     {
         public int ID { get; set; }
         public int UserID { get; set; }
         public int BeerID { get; set; }
-        public Nullable<double> Overall { get; set; }
-        public Nullable<System.DateTime> Created { get; private set; }
-        public byte[] Modified { get; private set; }
+        public Nullable<double> AppearanceScore { get; set; }
+        public string AppearanceDescription { get; set; }
+        public Nullable<double> AromaScore { get; set; }
+        public string AromaDescription { get; set; }
+        public Nullable<double> TasteScore { get; set; }
+        public string TasteDescription { get; set; }
+        public string OverallDescription { get; set; }
+        public System.DateTime Created { get; private set; }
+        public byte[] Modified { get; set; }
     
         public virtual Beer Beer { get; set; }
         public virtual User User { get; set; }

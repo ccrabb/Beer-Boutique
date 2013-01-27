@@ -6,7 +6,8 @@ using System.Web;
 namespace BeerBoutique
 {
     public static class Constants {
-        
+        public const string FACEBOOK_IMAGE_URI = "http://graph.facebook.com/{0}/picture";
+        public const string TWITTER_IMAGE_URI = "https://api.twitter.com/1/users/profile_image?user_id={0}";
     }
 
     public static class Alerts {

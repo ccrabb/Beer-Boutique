@@ -17,6 +17,7 @@ namespace Models
         public Beer()
         {
             this.Ratings = new HashSet<Rating>();
+            this.Reviews = new HashSet<Review>();
         }
     
         public int ID { get; set; }
@@ -37,5 +38,6 @@ namespace Models
         public virtual Brewery Brewery { get; set; }
         public virtual Style Style { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

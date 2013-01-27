@@ -1,0 +1,8 @@
+﻿@model IEnumerable<Models.ViewModels.ReviewViewModel>
+@{
+    Layout = null;
+}
+
+@foreach (var review in Model) {
+    Html.RenderPartial("_ReviewDetail", review);
+}

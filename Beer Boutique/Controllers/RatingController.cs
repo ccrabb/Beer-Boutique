@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using Facades.RatingFacade;
+using Models;
+using WebMatrix.WebData;
 
 namespace BeerBoutique.Controllers
 {

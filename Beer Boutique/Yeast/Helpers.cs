@@ -6,8 +6,7 @@ using System.Web;
 
 namespace BeerBoutique.Yeast
 {
-    public static class Helpers
-    {
+    public static class Helpers {
         public static string GetQueryString(IDictionary<string, string> dictionary) {
             if (dictionary == null || dictionary.Count == 0) {
                 throw new ArgumentNullException("dictionary");
@@ -26,6 +25,21 @@ namespace BeerBoutique.Yeast
             }
 
             return query.ToString();
+        }
+
+        public static string GetProfilePictureUri(string provider, string providerId) {
+            switch (provider.ToLower()) {
+                case "facebook": {
+                    return String.Format(Constants.FACEBOOK_IMAGE_URI, providerId);
+                    break;
+                }
+                case "twitter": {
+                    return String.Format(Constants.TWITTER_IMAGE_URI, providerId);
+                }
+                default: {
+                    throw new NotImplementedException();
+                }
+            }
         }
     }
 }

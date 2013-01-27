@@ -36,6 +36,8 @@ namespace Models
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Style> Styles { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Review> Reviews { get; set; }
     
         public virtual int SearchBeer(string query, string userID)
         {

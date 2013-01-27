@@ -1,5 +1,4 @@
-﻿
-@using BeerBoutique
+﻿@using BeerBoutique
 @using Newtonsoft.Json
 @model Models.ViewModels.BeerViewModel
 @{
@@ -13,10 +12,13 @@
                     <div class="details-header">
                         <div class="header-container">
                             <h5>@Html.DisplayTextFor(x => x.Name)</h5>
-                            <div class="rateit" id="rateDiv" data-rateit-value="@( Model.Overall/2 )"></div>
+                            <div class="rateit" id="rateDiv" data-rateit-value="@( Model.Overall / 2)"></div>
                             <div class="details-meta">
                                 <strong><a href=@Url.Action("Details", "Brewery", new { id = Model.BreweryID })>@Model.Brewery</a></strong><br />
                                 <i>@Html.DisplayTextFor(x => x.Location)</i>
+                            </div>
+                            <div>
+                                @Html.ActionLink("Review", "_Review", "Review", new { beerId = Model.ID }, new { data_toggle = "modal", type = "button", @class = "btn btn-danger", data_target = "#review_modal" })
                             </div>
                         </div>
                     </div>
@@ -57,8 +59,52 @@
         </div>
     </div>
 </section>
+<section>
+    <div class="container">
+        <div style="text-align: center;">
+            <h2>Reviews</h2>
+        </div>
+    </div>
+    <div class="container">
+        @{ Html.RenderAction("_Reviews", "Review", new { beerId = Model.ID }); }
+    </div>
+</section>
+
+<div class="modal fade" id="review_modal">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">&times;</a>
+        <h3>Review - @Model.Name</h3>
+    </div>
+    <div class="modal-body">
+        <p>Loading...</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Close</a>
+        <a href="#" class="btn btn-primary" id="saveReview">Save Changes</a>
+    </div>
+</div>
+
 @Html.HiddenFor(x => x.ID, new { id = "hiddenID" })
 <script type="text/javascript">
+    $(document).ready(function () {
+        $("#saveReview").bind("click", function (event, value) {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("_Review", "Review")",
+                data: $("#reviewForm").serialize(),
+                success: function (data) {
+                    $("#review_modal").modal("hide");
+                    window.bootstrap_alert.success('@Html.Raw(Alerts.ALERT_RATING)');
+                },
+                error: function (jxhr, msg, err) {
+                    //window.bootstrap_alert.error('@Html.Raw(Alerts.ALERT_ERROR)');
+                    alert('There was a problem saving your review. Please try again later.');
+                }
+            });
+            //$("#reviewForm").submit();
+        });
+    });
+
     $('#rateDiv').bind('rated', function (event, value) {
         var beerId = $("#hiddenID").val();
         $.ajax({

@@ -1,0 +1,60 @@
+﻿@model Models.Review
+@{
+    Layout = null;
+}
+@using (Html.BeginForm("_Review", "Rating", FormMethod.Post, new { id = "reviewForm" })) {
+    <fieldset>
+        <legend>Appearance</legend>
+        <ul class="unstyled">
+            <li>
+                @Html.HiddenFor(x => x.AppearanceScore, new { id = "scoreAppearance" })
+                <div class="rateit" id="rateAppearance" data-rateit-backingfld="#scoreAppearance"></div>
+            </li>
+            <li>
+                @Html.TextAreaFor(x => x.AppearanceDescription, new { placeholder = "Appearance Description...", style = "width:100%;" })
+            </li>
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <legend>Aroma</legend>
+        <ul class="unstyled">
+            <li>
+                @Html.HiddenFor(x => x.AromaScore, new { id = "scoreAroma" })
+                <div class="rateit" id="rateAroma" data-rateit-backingfld="#scoreAroma"></div>
+            </li>
+            <li>
+                @Html.TextAreaFor(x => x.AromaDescription, new { placeholder = "Aroma Description...", style = "width:100%;" })
+            </li>
+        </ul>
+    </fieldset>
+
+    <fieldset>
+        <legend>Taste</legend>
+        <ul class="unstyled">
+            <li>
+                @Html.HiddenFor(x => x.TasteScore, new { id = "scoreTaste" })
+                <div class="rateit" id="rateTaste" data-rateit-backingfld="#scoreTaste"></div>
+            </li>
+            <li>
+                @Html.TextAreaFor(x => x.TasteDescription, new { placeholder = "Taste Description...", style = "width:100%;" })
+            </li>
+        </ul>
+    </fieldset>
+    <fieldset>
+        <legend>Overall</legend>
+        <ul class="unstyled">
+            <li>
+                @Html.TextAreaFor(x => x.OverallDescription, new { placeholder = "Overall Thoughts...", style = "width:100%;" })
+            </li>
+        </ul>
+    </fieldset>
+    @*
+    <input type="submit" class="btn-primary" value="Save" />*@
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".rateit").rateit();
+        });
+    </script>
+    @Html.HiddenFor(x => x.BeerID)
+}

@@ -89,6 +89,9 @@
     <Compile Include="Rating.cs">
       <DependentUpon>BeerBoutique.tt</DependentUpon>
     </Compile>
+    <Compile Include="Review.cs">
+      <DependentUpon>BeerBoutique.tt</DependentUpon>
+    </Compile>
     <Compile Include="SearchAllAzure_Result.cs">
       <DependentUpon>BeerBoutique.tt</DependentUpon>
     </Compile>
@@ -114,10 +117,11 @@
       <DependentUpon>BeerBoutique.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
-      <DependentUpon>SimpleMembership.tt</DependentUpon>
+      <DependentUpon>BeerBoutique.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\BeerViewModel.cs" />
     <Compile Include="ViewModels\BreweryViewModel.cs" />
+    <Compile Include="ViewModels\ReviewViewModel.cs" />
     <Compile Include="webpages_Membership.cs">
       <DependentUpon>SimpleMembership.tt</DependentUpon>
     </Compile>
