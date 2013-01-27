@@ -21,10 +21,14 @@ namespace Facades.ReviewFacade
                 throw new ArgumentNullException("userId");
             }
 
-            using (var context = new BeerBoutiqueEntities())
-            {
-                return new ReviewViewModel(context.Reviews.FirstOrDefault(x => x.BeerID == beerId && x.UserID == userId));
+            using (var context = new BeerBoutiqueEntities()) {
+                var reviews = context.Reviews.FirstOrDefault(x => x.BeerID == beerId && x.UserID == userId);
+                if (reviews != null) {
+                    return new ReviewViewModel(reviews);
+                }
             }
+
+            return null;
         }
 
         public bool Review(Review review)

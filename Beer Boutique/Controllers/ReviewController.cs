@@ -26,18 +26,25 @@ namespace BeerBoutique.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult _Review(Review review)
         {
-            var reviewFacade = new ReviewFacade();
+            if (ModelState.IsValid) {
+                var reviewFacade = new ReviewFacade();
 
-            review.UserID = WebSecurity.CurrentUserId;
-            reviewFacade.Review(review);
+                review.UserID = WebSecurity.CurrentUserId;
+                reviewFacade.Review(review);
 
-            return View();
+                return View();
+            }
+            else {
+                throw new Exception("Invalid Model State");
+            }
         }
 
         [HttpGet]
-        public ActionResult _Reviews(int beerId) {
+        public ActionResult _Reviews(int beerId)
+        {
             var reviewFacade = new ReviewFacade();
 
             var reviews = reviewFacade.GetByBeer(beerId);
