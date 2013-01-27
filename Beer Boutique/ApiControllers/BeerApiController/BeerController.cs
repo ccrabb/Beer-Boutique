@@ -4,6 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Security;
+using Facades.RatingFacade;
+using WebMatrix.WebData;
 using Yeast.Constants;
 using Facades;
 using Facades.BeerFacade;
@@ -36,6 +39,12 @@ namespace BeerBoutique.ApiControllers
 
             if(beer == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            var ratings = new RatingFacade();
+            var rating = ratings.Get(id, WebSecurity.CurrentUserId);
+            if (rating != null) {
+                beer.Overall = rating.Overall;
+            }
 
             return beer;
         }

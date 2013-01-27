@@ -34,6 +34,8 @@ namespace Models.ViewModels
         public int BreweryID { get; set; }
         [DataMember]
         public double? AverageOverall { get; set; }
+        [DataMember]
+        public double? Overall { get; set; }
 
         [DataMember]
         public List<BeerViewModel> SimilarBeers { get; set; }
