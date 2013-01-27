@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="15a0933c9a3e4fd180b4627c7bb8c273" Name="Diagram1">
-        <EntityTypeShape EntityType="SimpleMembershipModel.User" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SimpleMembershipModel.webpages_Membership" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SimpleMembershipModel.webpages_OAuthMembership" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SimpleMembershipModel.webpages_Roles" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
-        <AssociationConnector Association="SimpleMembershipModel.webpages_UsersInRoles" ManuallyRouted="false" />
+      <Diagram DiagramId="3877d95ad3b74c4194ce3e37c0e6f507" Name="Diagram1">
+        <EntityTypeShape EntityType="SimpleMembership.User" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SimpleMembership.webpages_Membership" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SimpleMembership.webpages_OAuthMembership" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SimpleMembership.webpages_Roles" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="SimpleMembership.webpages_UsersInRoles" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
