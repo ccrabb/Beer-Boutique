@@ -96,7 +96,7 @@
                 data: $("#reviewForm").serialize(),
                 success: function (data) {
                     $("#review_modal").modal("hide");
-                    window.bootstrap_alert.success('@Html.Raw(Alerts.ALERT_RATING)');
+                    window.bootstrap_alert.success('@Html.Raw(Alerts.SUCCESS_REVIEW)');
                 },
                 error: function (jxhr, msg, err) {
                     //window.bootstrap_alert.error('@Html.Raw(Alerts.ALERT_ERROR)');
@@ -119,7 +119,7 @@
                 }
             },
             success: function (data) {
-                window.bootstrap_alert.success('@Html.Raw(Alerts.ALERT_RATING)');
+                window.bootstrap_alert.success('@Html.Raw(Alerts.SUCCESS_RATING)');
             },
             error: function (jxhr, msg, err) {
                 window.bootstrap_alert.error('@Html.Raw(Alerts.ALERT_ERROR)');

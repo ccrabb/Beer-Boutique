@@ -13,7 +13,7 @@ namespace Facades
     {
         BeerViewModel Get(int id);
         List<BeerViewModel> GetByBrewery(int id);
-        List<BeerViewModel> GetByStyle(int id, int take = 0);
+        List<BeerViewModel> GetByStyle(int id, int take = 0, int skip = 0);
         bool Update(BeerViewModel b);
         List<BeerViewModel> Top(BeerStyle? style);
     }

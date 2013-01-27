@@ -6,7 +6,9 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using Facades.BeerFacade;
+using Facades.StyleFacade;
 using Yeast.Constants;
+using Models;
 
 namespace BeerBoutique.Controllers
 {
@@ -124,6 +126,58 @@ namespace BeerBoutique.Controllers
                 iTotalDisplayRecords = res.Count(),
                 sEcho = echo,
                 aaData = res.Select(x => new[]
+                        {
+                            x.Name,
+                            x.Style,
+                            x.ABV.ToString(),
+                            x.AverageOverall.ToString(),
+                            x.ID.ToString()
+                        })
+
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Style(int styleId) {
+            var styleFacade = new StyleFacade();
+
+            return View(styleFacade.Get(styleId));
+        }
+
+        public JsonResult GetByStyle(int id)
+        {
+            var echo = 0;
+            var take = 0;
+            var skip = 0;
+
+            if (Request["sEcho"] != null)
+            {
+                if (!Int32.TryParse(Request["sEcho"], out echo))
+                {
+                    throw new HttpRequestException("XSS Attack possibly attempted");
+                }
+            }
+
+            if (Request["iDisplayStart"] != null) {
+                if (!Int32.TryParse(Request["iDisplayStart"], out skip)) {
+                    skip = 0;
+                }
+            }
+
+            if (Request["iDisplayLength"] != null)
+            {
+                if (!Int32.TryParse(Request["iDisplayLength"], out take)) {
+                    take = 50;
+                }
+            }
+
+            var beerFacade = new BeerFacade();
+            var beers = beerFacade.GetByStyle(id);
+            return Json(new
+            {
+                iTotalRecords = beers.Count(),
+                iTotalDisplayRecords = beers.Count(),
+                sEcho = echo,
+                aaData = beers.Skip(skip).Take(take).Select(x => new[]
                         {
                             x.Name,
                             x.Style,

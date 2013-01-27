@@ -55,6 +55,8 @@
     <Compile Include="ReviewFacade\ReviewFacade.cs" />
     <Compile Include="SearchFacade\ISearchFacade.cs" />
     <Compile Include="SearchFacade\SearchFacade.cs" />
+    <Compile Include="StyleFacade\IStyleFacade.cs" />
+    <Compile Include="StyleFacade\StyleFacade.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Yeast.csproj">

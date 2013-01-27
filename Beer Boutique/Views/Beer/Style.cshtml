@@ -1,0 +1,52 @@
+﻿@model Models.Style
+@{
+    ViewBag.Title = "Style";
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#tableBeers').dataTable({
+            "bProcessing": true,
+            "bServerSide": true,
+            "sAjaxSource": "/Beer/GetByStyle/@Model.ID",
+            "sPaginationType": "bootstrap",
+            "iDisplayLength": 10,
+            "bFilter": false,
+            "bPaginate": true,
+            "aoColumnDefs": [{
+                    "aTargets": [0],
+                    "fnRender": function (o, val) {
+                        return "<a href='/Beer/Details/" + o.aData[4] + "'>" + val + "</a>";
+                    }
+                },
+                {
+                    "aTargets": [3],
+                    "fnRender": function (o, val) {
+                        return "<div class='rateit' data-rateit-value='" + val/2 + "' data-rateit-ispreset='true' data-rateit-readonly='true' title='" + val + "'></div>";
+                    }
+                }],
+            "fnInitComplete" : function(oSettings, json) {
+                $(".rateit").rateit();
+            }
+        });
+    });
+</script>
+<div class="container">
+    <h2>@Model.Name</h2>
+</div>
+<section>
+    <div class="container">
+        <table class="table table-bordered table-striped" id="tableBeers">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Style</th>
+                    <th>ABV %</th>
+                    <th>Rating</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</section>
+

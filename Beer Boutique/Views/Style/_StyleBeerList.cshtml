@@ -1,0 +1,14 @@
+﻿@model Models.Category
+@{
+    Layout = null;
+}
+<fieldset>
+    <legend>@Model.Name</legend>
+    <ul class="unstyled">
+        @foreach (var style in Model.Styles)
+        {
+            
+            <li>@Html.ActionLink(style.Name, "Style", "Beer", new { styleId = style.ID }, null)</li>
+        }
+    </ul>
+</fieldset>

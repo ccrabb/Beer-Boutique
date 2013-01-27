@@ -1,5 +1,29 @@
-﻿@{
+﻿@model IEnumerable<Models.Category>
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="container">
+    <div class="row-fluid">
+        <div class="span6">
+            <fieldset>
+                <legend>Ale Styles</legend>
+
+                @foreach (var category in Model.Where(x => x.Name.Contains("Ale")))
+                {
+                    Html.RenderPartial("_StyleBeerList", category);
+                }
+            </fieldset>
+        </div>
+        <div class="span6">
+            <fieldset>
+                <legend>Lager Styles</legend>
+
+                @foreach (var category in Model.Where(x => x.Name.Contains("Lager")))
+                {
+                    Html.RenderPartial("_StyleBeerList", category);
+                }
+            </fieldset>
+        </div>
+    </div>
+</div>

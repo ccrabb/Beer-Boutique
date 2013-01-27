@@ -35,6 +35,7 @@ namespace BeerBoutique.Yeast
                 }
                 case "twitter": {
                     return String.Format(Constants.TWITTER_IMAGE_URI, providerId);
+                    break;
                 }
                 default: {
                     throw new NotImplementedException();

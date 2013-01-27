@@ -18,7 +18,16 @@
                     console.log(o.aData);
                     return "<a href='/Beer/Details/" + o.aData[4] + "'>" + val + "</a>";
                 }
-            }]
+            },
+            {
+                "aTargets": [3],
+                "fnRender": function (o, val) {
+                    return "<div class='rateit' data-rateit-value='" + val/2 + "' data-rateit-ispreset='true' data-rateit-readonly='true' title='" + val + "'></div>";
+                }
+            }],
+            "fnInitComplete" : function(oSettings, json) {
+                $(".rateit").rateit();
+            }
         });
     });
 </script>

@@ -83,7 +83,7 @@ namespace Facades.BeerFacade
             }
         }
 
-        public List<BeerViewModel> GetByStyle(int id, int take = 0)
+        public List<BeerViewModel> GetByStyle(int id, int take = 50, int skip = 0)
         {
             using (var context = new BeerBoutiqueEntities())
             {
@@ -91,7 +91,7 @@ namespace Facades.BeerFacade
                              where x.StyleID == id
                              select x).ToList();
 
-                var ret = beers.Select(x => new BeerViewModel(x)).ToList();
+                var ret = beers.Select(x => new BeerViewModel(x)).Take(take).Skip(skip).ToList();
 
                 if (take == 0)
                     return ret;

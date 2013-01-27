@@ -186,6 +186,7 @@
     <Compile Include="Controllers\RatingController.cs" />
     <Compile Include="Controllers\ReviewController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\StyleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -375,6 +376,8 @@
     <Content Include="Views\Review\_Review.cshtml" />
     <Content Include="Views\Review\_Reviews.cshtml" />
     <Content Include="Views\Review\_ReviewDetail.cshtml" />
+    <Content Include="Views\Style\_StyleBeerList.cshtml" />
+    <Content Include="Views\Beer\Style.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
