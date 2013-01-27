@@ -11,7 +11,7 @@
             }
             else if (account.Provider.ToLower() == "twitter")
             {
-                <img src="https://api.twitter.com/1/users/profile_image?user_id=@account.ProviderUserId" alt="@User.Identity.Name" class="brand" />
+                <img src="https://api.twitter.com/1/users/profile_image?user_id=@account.ProviderUserId" alt="@User.Identity.Name" style="max-height: 30px;float:left;" class="img-polaroid" />
             }
         }
         <li class="dropdown">
