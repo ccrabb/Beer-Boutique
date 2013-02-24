@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Formatting;
 using System.Reflection;
 using System.Web;
 using System.Web.Http;
@@ -34,6 +35,8 @@ namespace BeerBoutique
             AuthConfig.RegisterAuth();
 
             WebSecurity.InitializeDatabaseConnection("BeerBoutique","Users", "UserID", "UserName", false);
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.MediaTypeMappings.Add(new QueryStringMapping("format", "json", "application/json"));
+
             RegisterDependencies();
         }
 
