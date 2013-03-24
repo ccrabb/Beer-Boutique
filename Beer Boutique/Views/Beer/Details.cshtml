@@ -1,14 +1,38 @@
-﻿@using BeerBoutique
+﻿@using System.Configuration
+@using BeerBoutique
 @using Newtonsoft.Json
 @model Models.ViewModels.BeerViewModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<script type="text/javascript">
+    function BeerImage(instagramUrl, active, instagramText, link) {
+        var self = this;
+        self.url = instagramUrl;
+        self.isActive = active;
+        self.text = instagramText;
+        self.link = link;
+    }
+
+    function BeerViewModel() {
+        var self = this;
+
+        self.beerImages = ko.observableArray([
+           new BeerImage('@Url.Content("~/Content/images/beertoast.jpg")', true, 'Cheers!', '#')
+        ]);
+
+        self.addImage = function (instagramUrl, active, instagramText, link) {
+            self.beerImages.push(new BeerImage(instagramUrl, active, instagramText, link));
+        };
+    }
+</script>
+
 <section>
     <div class="container">
         <div class="details">
             <div class="row">
-                <div class="span8">
+                <div class="span7">
                     <div class="details-header">
                         <div class="header-container">
                             <h5>@Html.DisplayTextFor(x => x.Name)</h5>
@@ -17,9 +41,10 @@
                                 <strong><a href=@Url.Action("Details", "Brewery", new { id = Model.BreweryID })>@Model.Brewery</a></strong><br />
                                 <i>@Html.DisplayTextFor(x => x.Location)</i>
                             </div>
-                            @if (User.Identity.IsAuthenticated) {
+                            @if (User.Identity.IsAuthenticated)
+                            {
                                 <div>
-                                    @Html.ActionLink("Review", "_Review", "Review", new {beerId = Model.ID}, new {data_toggle = "modal", type = "button", @class = "btn btn-danger", data_target = "#review_modal"})
+                                    @Html.ActionLink("Review", "_Review", "Review", new { beerId = Model.ID }, new { data_toggle = "modal", type = "button", @class = "btn btn-danger", data_target = "#review_modal" })
                                 </div>
                             }
                         </div>
@@ -34,8 +59,30 @@
                         @Html.DisplayTextFor(x => x.Description)
                     </div>
                 </div>
-                <div class="span3">
-                    <img class="img-polaroid" alt="@(Model.Name)" src="~/Content/images/beertoast.jpg" />
+                <div class="span4">
+                    <div id="myCarousel" class="carousel" style="visibility: hidden">
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                            <li data-target="#myCarousel" data-slide-to="3"></li>
+                            <li data-target="#myCarousel" data-slide-to="4"></li>
+                        </ol>
+                        <!-- Carousel items -->
+                        <div class="carousel-inner">
+                            <div data-bind="foreach: beerImages">
+                                <div class="item" data-bind="css: { active : isActive }">
+                                    <img data-bind="attr: {src: url, alt: text }" />
+                                    <div class="carousel-caption">
+                                        <p><a data-bind="attr: { href: link }"><span data-bind="text: text"></span></a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Carousel nav -->
+                        <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                        <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -89,6 +136,10 @@
 @Html.HiddenFor(x => x.ID, new { id = "hiddenID" })
 <script type="text/javascript">
     $(document).ready(function () {
+        
+        window.viewModel = new BeerViewModel();
+        ko.applyBindings(viewModel);
+
         $("#saveReview").bind("click", function (event, value) {
             $.ajax({
                 type: "POST",
@@ -99,11 +150,26 @@
                     window.bootstrap_alert.success('@Html.Raw(Alerts.SUCCESS_REVIEW)');
                 },
                 error: function (jxhr, msg, err) {
-                    //window.bootstrap_alert.error('@Html.Raw(Alerts.ALERT_ERROR)');
                     alert('There was a problem saving your review. Please try again later.');
                 }
             });
-            //$("#reviewForm").submit();
+        });
+
+        var url = '@Html.Raw(String.Format("https://api.instagram.com/v1/tags/{0}/media/recent?client_id={1}&count=5&callback=?", Model.Name.Replace(" ", String.Empty).ToLower(), ConfigurationManager.AppSettings["InstagramClientID"]))';
+        console.log(url);
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: "json",
+            success: function (data) {
+                window.viewModel.beerImages.removeAll();
+                $.each(data.data, function (i, item) {
+                    window.viewModel.addImage(item.images.low_resolution.url, i === 0, item.caption.text, item.link);
+                });
+
+                $('.carousel').carousel();
+                $('.carousel').css("visibility", "visible");
+            }
         });
     });
 
@@ -127,3 +193,8 @@
         });
     });
 </script>
+
+@section Scripts {
+    @Scripts.Render(BundleConfig.SCRIPT_KNOCKOUTJS);
+}
+

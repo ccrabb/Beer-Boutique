@@ -26,7 +26,7 @@ namespace BeerBoutique
             bundles.Add(new ScriptBundle(SCRIPT_YEAST).Include("~/Scripts/Script.js"));
 
             //TODO: PLZ DOLAN NO
-            bundles.Add(new ScriptBundle(SCRIPT_JQUERY).Include("~/Scripts/jquery-1.8.3.js"));
+            bundles.Add(new ScriptBundle(SCRIPT_JQUERY).Include("~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle(SCRIPT_JQUERYUI).Include("~/Scripts/jquery-ui-{version}.js"));
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Helpers;
@@ -188,5 +189,11 @@ namespace BeerBoutique.Controllers
 
             }, JsonRequestBehavior.AllowGet);
         }
+
+        //public JsonResult GetImages(string beerName) {
+
+        //    var client = new WebClient();
+        //    client.DownloadString()
+        //}
     }
 }
