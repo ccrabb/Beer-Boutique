@@ -20,11 +20,15 @@
         <AssociationConnector Association="BeerBoutiqueModel.FK_Brewery_Contact" ManuallyRouted="false" />
         <AssociationConnector Association="BeerBoutiqueModel.FK_BreweryGeocode_Brewery" ManuallyRouted="false" />
         <AssociationConnector Association="BeerBoutiqueModel.FK_Style_Category" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="BeerBoutiqueModel.User" Width="1.5" PointX="7.5" PointY="1.75" />
+        <EntityTypeShape EntityType="BeerBoutiqueModel.User" Width="1.5" PointX="7.5" PointY="14.625" />
         <AssociationConnector Association="BeerBoutiqueModel.FK_Rating_Users" />
         <EntityTypeShape EntityType="BeerBoutiqueModel.Review" Width="1.5" PointX="12.75" PointY="4.875" />
         <AssociationConnector Association="BeerBoutiqueModel.FK_Review_Beer" />
         <AssociationConnector Association="BeerBoutiqueModel.FK_Review_Users" />
+        <EntityTypeShape EntityType="BeerBoutiqueModel.webpages_Membership" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="BeerBoutiqueModel.webpages_OAuthMembership" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="BeerBoutiqueModel.webpages_Roles" Width="1.5" PointX="5.25" PointY="14.875" />
+        <AssociationConnector Association="BeerBoutiqueModel.webpages_UsersInRoles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

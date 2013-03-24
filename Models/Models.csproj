@@ -123,13 +123,13 @@
     <Compile Include="ViewModels\BreweryViewModel.cs" />
     <Compile Include="ViewModels\ReviewViewModel.cs" />
     <Compile Include="webpages_Membership.cs">
-      <DependentUpon>SimpleMembership.tt</DependentUpon>
+      <DependentUpon>BeerBoutique.tt</DependentUpon>
     </Compile>
     <Compile Include="webpages_OAuthMembership.cs">
-      <DependentUpon>SimpleMembership.tt</DependentUpon>
+      <DependentUpon>BeerBoutique.tt</DependentUpon>
     </Compile>
     <Compile Include="webpages_Roles.cs">
-      <DependentUpon>SimpleMembership.tt</DependentUpon>
+      <DependentUpon>BeerBoutique.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

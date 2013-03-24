@@ -38,6 +38,20 @@ namespace Models.ViewModels
         public double? Overall { get; set; }
 
         [DataMember]
+        public string TagName {
+            get {
+                var parts = this.Name.Split(' ');
+                int temp;
+                var result = String.Empty;
+                foreach (var p in parts.Where(p => !Int32.TryParse(p, out temp))) {
+                    result += p;
+                }
+
+                return result;
+            }
+        }
+
+        [DataMember]
         public List<BeerViewModel> SimilarBeers { get; set; }
 
         [DataMember]

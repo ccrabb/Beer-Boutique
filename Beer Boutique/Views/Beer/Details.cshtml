@@ -74,7 +74,7 @@
                                 <div class="item" data-bind="css: { active : isActive }">
                                     <img data-bind="attr: {src: url, alt: text }" />
                                     <div class="carousel-caption">
-                                        <p><a data-bind="attr: { href: link }"><span data-bind="text: text"></span></a></p>
+                                        <p><a data-bind="attr: { href: link }" target="_new"><span data-bind="text: text"></span></a></p>
                                     </div>
                                 </div>
                             </div>
@@ -155,7 +155,7 @@
             });
         });
 
-        var url = '@Html.Raw(String.Format("https://api.instagram.com/v1/tags/{0}/media/recent?client_id={1}&count=5&callback=?", Model.Name.Replace(" ", String.Empty).ToLower(), ConfigurationManager.AppSettings["InstagramClientID"]))';
+        var url = '@Html.Raw(String.Format("https://api.instagram.com/v1/tags/{0}/media/recent?client_id={1}&count=5&callback=?", Model.TagName, ConfigurationManager.AppSettings["InstagramClientID"]))';
         console.log(url);
         $.ajax({
             type: "GET",

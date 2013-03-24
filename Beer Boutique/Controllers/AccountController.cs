@@ -307,7 +307,7 @@ namespace BeerBoutique.Controllers
             if (ModelState.IsValid)
             {
                 // Insert a new user into the database
-                using (var membershipEntities = new MembershipEntities())
+                using (var membershipEntities = new BeerBoutiqueEntities())
                 {
                     var user = membershipEntities.Users.FirstOrDefault(x => x.UserName.ToLower() == model.UserName.ToLower());
 

@@ -38,6 +38,9 @@ namespace Models
         public DbSet<Style> Styles { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        public DbSet<webpages_Membership> webpages_Membership { get; set; }
+        public DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
+        public DbSet<webpages_Roles> webpages_Roles { get; set; }
     
         public virtual int SearchBeer(string query, string userID)
         {
