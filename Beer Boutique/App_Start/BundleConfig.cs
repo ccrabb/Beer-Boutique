@@ -18,12 +18,18 @@ namespace BeerBoutique
         public static string STYLE_BOOTSTRAP = "~/Content/bootstrap";
         public static string STYLE_RATEIT = "~/Content/rateit";
         public static string STYLE_YEAST = "~/Content/Yeast";
+        public static string SCRIPT_SELECT2 = "~/bundles/select2";
+        public static string STYLE_SELECT2 = "~/Content/select2";
 
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
         public static void RegisterBundles(BundleCollection bundles)
         {
             //TODO: Consolidate bundles where possible
             bundles.Add(new ScriptBundle(SCRIPT_YEAST).Include("~/Scripts/Script.js"));
+
+            bundles.Add(new ScriptBundle(SCRIPT_SELECT2).Include("~/Scripts/select2.js"));
+
+            bundles.Add(new StyleBundle(STYLE_SELECT2).Include("~/Content/select2.css"));
 
             //TODO: PLZ DOLAN NO
             bundles.Add(new ScriptBundle(SCRIPT_JQUERY).Include("~/Scripts/jquery-{version}.js"));

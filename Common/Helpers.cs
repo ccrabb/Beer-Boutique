@@ -19,5 +19,15 @@ namespace Yeast
             
             return e.ToString();
         }
+
+        public static Dictionary<int, string> GetDictionary<T>() where T : struct {
+            var val = Enum.GetValues(typeof(T)).Cast<object>().ToDictionary(e => (int)e, e => ((Enum)e).GetDescription());
+            return val;
+        }
+
+        public static string ToJSON(Dictionary<int, string> dict, string keyName = "id", string valueName = "text") {
+            var result = dict.OrderBy(y => y.Value).Select(x => String.Format("{{{2}: {0}, {3}: '{1}'}}", x.Key, x.Value, keyName, valueName));
+            return "[" + String.Join(",", result) + "]";
+        }
     }
 }

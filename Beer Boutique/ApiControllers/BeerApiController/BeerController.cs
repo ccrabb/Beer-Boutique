@@ -45,6 +45,9 @@ namespace BeerBoutique.ApiControllers
             if (rating != null) {
                 beer.Overall = rating.Overall;
             }
+            else {
+                beer.Overall = 0;
+            }
 
             return beer;
         }

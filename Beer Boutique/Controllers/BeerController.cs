@@ -8,6 +8,7 @@ using System.Web.Helpers;
 using System.Web.Mvc;
 using Facades.BeerFacade;
 using Facades.StyleFacade;
+using Models.ViewModels;
 using Yeast.Constants;
 using Models;
 
@@ -66,24 +67,29 @@ namespace BeerBoutique.Controllers
         // POST: /Beer/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [Authorize(Roles = "Geek")]
+        public ActionResult Edit(BeerViewModel beer)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
+                var beerFacade = new BeerFacade();
+                beerFacade.Update(beer);
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
                 return View();
+            }
+            else
+            {
+                throw new Exception("Invalid Model State");
             }
         }
 
-        public JsonResult GetByBrewery(int id, int take = 0, int skip = 0) {
+        public JsonResult GetByBrewery(int id, int take = 0, int skip = 0)
+        {
             int echo = 0;
-            if (Request["sEcho"] != null) {
-                if(!Int32.TryParse(Request["sEcho"], out echo)) {
+            if (Request["sEcho"] != null)
+            {
+                if (!Int32.TryParse(Request["sEcho"], out echo))
+                {
                     throw new HttpRequestException("XSS Attack possibly attempted");
                 }
             }
@@ -138,7 +144,8 @@ namespace BeerBoutique.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult Style(int styleId) {
+        public ActionResult Style(int styleId)
+        {
             var styleFacade = new StyleFacade();
 
             return View(styleFacade.Get(styleId));
@@ -158,15 +165,18 @@ namespace BeerBoutique.Controllers
                 }
             }
 
-            if (Request["iDisplayStart"] != null) {
-                if (!Int32.TryParse(Request["iDisplayStart"], out skip)) {
+            if (Request["iDisplayStart"] != null)
+            {
+                if (!Int32.TryParse(Request["iDisplayStart"], out skip))
+                {
                     skip = 0;
                 }
             }
 
             if (Request["iDisplayLength"] != null)
             {
-                if (!Int32.TryParse(Request["iDisplayLength"], out take)) {
+                if (!Int32.TryParse(Request["iDisplayLength"], out take))
+                {
                     take = 50;
                 }
             }
@@ -189,11 +199,5 @@ namespace BeerBoutique.Controllers
 
             }, JsonRequestBehavior.AllowGet);
         }
-
-        //public JsonResult GetImages(string beerName) {
-
-        //    var client = new WebClient();
-        //    client.DownloadString()
-        //}
     }
 }

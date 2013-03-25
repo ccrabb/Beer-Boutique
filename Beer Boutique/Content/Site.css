@@ -249,17 +249,17 @@ p.login {
     visibility: hidden;
 }
 
-    .carousel-control.right {
-        right: 15px;
-        left: auto;
-    }
+.carousel-control.right {
+    right: 15px;
+    left: auto;
+}
 
-    .carousel-control:hover {
-        color: #ffffff;
-        text-decoration: none;
-        opacity: 0.9;
-        filter: alpha(opacity=90);
-    }
+.carousel-control:hover {
+    color: #ffffff;
+    text-decoration: none;
+    opacity: 0.9;
+    filter: alpha(opacity=90);
+}
 
 .carousel-caption {
     position: absolute;
@@ -272,14 +272,27 @@ p.login {
     visibility: hidden;
 }
 
-    .carousel:hover .carousel-control {
-        visibility: visible;
-    }
-    .carousel:hover .carousel-caption {
-        visibility: visible;
-    }
+.carousel:hover .carousel-control {
+    visibility: visible;
+}
 
-    .carousel-caption h4,
-    .carousel-caption p {
-        color: #ffffff;
-    }
+.carousel:hover .carousel-caption {
+    visibility: visible;
+}
+
+.carousel-caption h4,
+.carousel-caption p {
+    color: #ffffff;
+}
+
+input.h5 {
+    color: #DD390D;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 20px;
+    display: block;
+}
+
+input.beerProperty {
+    width: 40px;
+}

@@ -42,6 +42,7 @@ namespace Facades.BeerFacade
                     return false;
                 }
 
+                oldBeer.StyleID = b.StyleID;
                 oldBeer.IBU = b.IBU;
                 oldBeer.ABV = b.ABV;
                 oldBeer.Description = b.Description;

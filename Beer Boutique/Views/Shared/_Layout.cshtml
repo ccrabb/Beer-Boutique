@@ -35,7 +35,7 @@
                         <li><a href=@Url.Action("Index", "Style")>Styles</a></li>
                     </ul>
                     <form class="navbar-search pull-left" action="">
-                        <input id="searchBox" type="text" class="search-query span4" placeholder="Search" data-provide="typeahead">
+                        <input id="searchBox" type="text" class="search-query span4" placeholder="Search" data-provide="typeahead" autocomplete="off">
                     </form>
                     @Html.Partial("_LoginPartial")
                 </div>
@@ -130,5 +130,6 @@
         });
     </script>
     @RenderSection("scripts", false)
+    @RenderSection("styles", false);
 </body>
 </html>

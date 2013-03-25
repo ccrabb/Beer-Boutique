@@ -19,6 +19,8 @@ namespace Models.ViewModels
         [DataMember]
         public string Category { get; set; }
         [DataMember]
+        public int StyleID { get; set; }
+        [DataMember]
         public string Style { get; set; }
         [DataMember]
         public string Name { get; set; }
@@ -57,12 +59,15 @@ namespace Models.ViewModels
         [DataMember]
         public string FullStyle { get; set; }
 
+        public BeerViewModel(){ }
+
         public BeerViewModel(Beer beer) {
             ID = beer.ID;
             BreweryID = beer.BreweryID;
             Brewery = beer.Brewery.Name;
             Location = String.Join(" / ", beer.Brewery.Contact.Address.Locality, beer.Brewery.Contact.Address.Region);
             Category = beer.Style.Category.Name;
+            StyleID = beer.StyleID;
             Style = beer.Style.Name;
             Name = beer.Name;
             ABV = beer.ABV;
