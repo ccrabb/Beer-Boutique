@@ -16,6 +16,7 @@ namespace BeerBoutique
         public static string ALERT_UNAUTHORIZED = "<strong>Party Foul!</strong> You must be logged in to perform that action";
         public static string SUCCESS_RATING = "<strong>Cheers!</strong> Thanks for rating this beer";
         public static string SUCCESS_REVIEW = "<strong>Cheers!</strong> Thanks for reviewing this beer!";
-        public static string SUCCESS_EDIT = "<strong>Cheers!</strong> Thanks for updating this beer!";
+        public static string SUCCESS_BEER_EDIT = "<strong>Cheers!</strong> Thanks for updating this beer!";
+        public static string SUCCESS_BREWERY_EDIT = "<strong>Cheers!</strong> Thanks for updating this brewery!";
     }
 }

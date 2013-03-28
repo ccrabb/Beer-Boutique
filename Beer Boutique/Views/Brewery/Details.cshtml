@@ -1,63 +1,159 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using System.Configuration
+@using BeerBoutique
 @model Models.ViewModels.BreweryViewModel
+<script id="breweryDetail" type="text/html">
+    <div class="details-header">
+        <div class="header-container">
+            <h5 data-bind="text: name"></h5>
+            <div class="details-meta">
+                <strong data-bind="text: locality"></strong>
+                <br />
+                <i data-bind="text: region"></i>
+            </div>
+            <div>
+                @if (User.IsInRole("Geek"))
+                {
+                    <a class="btn btn-warning" onclick="window.viewModel.edit(true);">Edit</a>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="details-content">
+        <ul>
+            <li><a data-bind="attr: { href: uri }, text: uri"></a></li>
+            <li><a data-bind="attr: { href: 'tel:' + phone() }, text: phone"></a></li>
+        </ul>
+        <span data-bind="text: description" />
+    </div>
+</script>
+<script id="breweryEdit" type="text/html">
+    <div class="details-header">
+        <div class="header-container">
+            <input type="text" class="h5" data-bind="value: name" style="width: 450px;" />
+            <div class="details-meta">
+                <input type="text" data-bind="value: locality" /><br/>
+                <input type="text" data-bind="value: region" />
+            </div>
+            <div>
+                @if (User.IsInRole("Geek"))
+                {
+                    <a class="btn btn-success" data-bind="click: save, clickBubble: false">Save</a>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="details-content">
+        <ul>
+            <li>
+                <input type="url" data-bind="value: uri" style="width: 440px;" />
+            </li>
+            <li>
+                <input type="tel" data-bind="value: phone" />
+            </li>
+        </ul>
+        <textarea data-bind="value: description" style="width:450px; height:200px;"></textarea>
+    </div>
+</script>
 <script type="text/javascript">
+    function Image(instagramUrl, active, instagramText, link) {
+        var self = this;
+        self.url = instagramUrl;
+        self.isActive = active;
+        self.text = instagramText;
+        self.link = link;
+    }
+    
+    function BreweryViewModel() {
+        var self = this;
+        self.edit = ko.observable(false);
 
-    $(document).ready(function () {
-        $('#tableBeers').dataTable({
-            "bProcessing": true,
-            "bServerSide": true,
-            "sAjaxSource": "/Beer/GetByBrewery/@Model.ID",
-            "bPaginate": false,
-            "bFilter": false,
-            "bInfo": false,
-            "aoColumnDefs": [{
-                "aTargets": [0],
-                "fnRender": function (o, val) {
-                    console.log(o.aData);
-                    return "<a href='/Beer/Details/" + o.aData[4] + "'>" + val + "</a>";
-                }
-            },
-            {
-                "aTargets": [3],
-                "fnRender": function (o, val) {
-                    return "<div class='rateit' data-rateit-value='" + val/2 + "' data-rateit-ispreset='true' data-rateit-readonly='true' title='" + val + "'></div>";
-                }
-            }],
-            "fnInitComplete" : function(oSettings, json) {
-                $(".rateit").rateit();
+        self.id = ko.observable('@Model.ID');
+        self.name = ko.observable('@Model.Name');
+        self.locality = ko.observable('@Model.Locality');
+        self.region = ko.observable('@Model.Region');
+        self.uri = ko.observable('@Model.Uri');
+        self.phone = ko.observable('@Model.Phone');
+        self.description = ko.observable('@Model.Description');
+
+        self.templateToUse = function () {
+            return self.edit() ? "breweryEdit" : "breweryDetail";
+        };
+
+        self.save = function () {
+            debugger;
+            if (!window.saving) {
+                window.saving = true;
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("Edit", "Brewery")',
+                    data: self,
+                    success: function (data) {
+                        window.viewModel.edit(false);
+                        window.saving = false;
+                        window.bootstrap_alert.success('@Html.Raw(Alerts.SUCCESS_BREWERY_EDIT)');
+                    },
+                    error: function (jxhr, msg, err) {
+                        window.saving = false;
+                        window.bootstrap_alert.error('@Html.Raw(Alerts.ALERT_ERROR)');
+                    }
+                });
+            }
+        };
+        
+        self.images = ko.observableArray([]);
+        
+        self.addImage = function (instagramUrl, active, instagramText, link) {
+            self.images.push(new Image(instagramUrl, active, instagramText, link));
+        };
+        
+        var url = '@Html.Raw(String.Format("https://api.instagram.com/v1/tags/{0}/media/recent?client_id={1}&count=5&callback=?", Model.TagName, ConfigurationManager.AppSettings["InstagramClientID"]))';
+        $.ajax({
+            type: "GET",
+            url: url,
+            dataType: "json",
+            success: function (data) {
+                $.each(data.data, function (i, item) {
+                    self.addImage(item.images.low_resolution.url, i === 0, item.caption.text, item.link);
+                });
+
+                $('.carousel').css("visibility", "visible");
             }
         });
-    });
+    }
 </script>
 <section>
     <div class="container">
         <div class="details">
             <div class="row">
-                <div class="span8">
-                    <div class="details-header">
-                        <a href="#">
-                            <img class="details-favorite" alt="Favorite" src="~/Content/images/favorite.png" /></a>
-
-                        <div class="header-container">
-                            <h5>@Html.DisplayTextFor(x => x.Name)</h5>
-                            <div class="details-meta">
-                                <strong>@Html.DisplayTextFor(x => x.Locality)</strong><br />
-                                <i>@Html.DisplayTextFor(x => x.Region)</i>
+                <div class="span7" data-bind="template: {name: templateToUse}">
+                </div>
+                <div class="span4">
+                    <div id="myCarousel" class="carousel" style="visibility: hidden; height:400px;">
+                        <ol class="carousel-indicators">
+                            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                            <li data-target="#myCarousel" data-slide-to="1"></li>
+                            <li data-target="#myCarousel" data-slide-to="2"></li>
+                            <li data-target="#myCarousel" data-slide-to="3"></li>
+                            <li data-target="#myCarousel" data-slide-to="4"></li>
+                        </ol>
+                        <!-- Carousel items -->
+                        <div class="carousel-inner">
+                            <div data-bind="foreach: images">
+                                <div class="item" data-bind="css: { active : isActive }">
+                                    <img data-bind="attr: {src: url, alt: text }" />
+                                    <div class="carousel-caption">
+                                        <p><a data-bind="attr: { href: link }" target="_new"><span data-bind="text: text"></span></a></p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <!-- Carousel nav -->
+                        <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                        <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
                     </div>
-                    <div class="details-content">
-                        <ul>
-                            <li><a href=@Model.Uri>@Model.Uri</a></li>
-                            <li><a href="tel:@Model.Phone">@Model.Phone</a></li>
-                        </ul>
-                        @Html.DisplayTextFor(x => x.Description)
-                    </div>
-                </div>
-                <div class="span3">
-                    <img class="img-polaroid" alt="@(Model.Name)" src="~/Content/images/beertoast.jpg" />
                 </div>
             </div>
         </div>
@@ -80,3 +176,40 @@
         </table>
     </div>
 </section>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('.carousel').carousel();
+        window.viewModel = new BreweryViewModel();
+        ko.applyBindings(window.viewModel);
+
+        $('#tableBeers').dataTable({
+            "bProcessing": true,
+            "bServerSide": true,
+            "sAjaxSource": "/Beer/GetByBrewery/@Model.ID",
+            "bPaginate": false,
+            "bFilter": false,
+            "bInfo": false,
+            "aoColumnDefs": [{
+                    "aTargets": [0],
+                    "fnRender": function (o, val) {
+                        console.log(o.aData);
+                        return "<a href='/Beer/Details/" + o.aData[4] + "'>" + val + "</a>";
+                    }
+                },
+                {
+                    "aTargets": [3],
+                    "fnRender": function (o, val) {
+                        return "<div class='rateit' data-rateit-value='" + val / 2 + "' data-rateit-ispreset='true' data-rateit-readonly='true' title='" + val + "'></div>";
+                    }
+                }],
+            "fnInitComplete": function (oSettings, json) {
+                $(".rateit").rateit();
+            }
+        });
+    });
+</script>
+@section Scripts {
+    @Scripts.Render(BundleConfig.SCRIPT_KNOCKOUTJS)
+}

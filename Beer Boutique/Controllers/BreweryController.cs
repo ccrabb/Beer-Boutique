@@ -19,7 +19,7 @@ namespace BeerBoutique.Controllers
 
         public ActionResult Details(int id)
         {
-            ViewBag.SuccessMessage = "GOMBUI! Testing Testing 1234";
+            ViewBag.InfoMessage = "GOMBUI is undergoing maintenance from now until forever.  Thanks for your understanding.";
             var brewController = new ApiControllers.BreweryController(new BreweryFacade());
             var b = brewController.Get(id);
 
@@ -65,17 +65,19 @@ namespace BeerBoutique.Controllers
         // POST: /Brewery/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [Authorize(Roles="Geek")]
+        public ActionResult Edit(BreweryViewModel brewery)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
+                var beerFacade = new BreweryFacade();
+                beerFacade.Update(brewery);
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
                 return View();
+            }
+            else
+            {
+                throw new Exception("Invalid Model State");
             }
         }
     }

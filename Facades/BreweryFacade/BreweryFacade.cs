@@ -27,7 +27,13 @@ namespace Facades.BreweryFacade
 
                 if (brewery == null)
                     return false;
-                
+
+                brewery.Description = b.Description;
+                brewery.Name = b.Name;
+                brewery.Contact.Address.Locality = b.Locality;
+                brewery.Contact.Address.Region = b.Region;
+                brewery.Contact.Phone = b.Phone;
+                brewery.Contact.Website = b.Uri;
                 context.SaveChanges();
                 return true;
             }
