@@ -71,19 +71,18 @@
         self.edit = ko.observable(false);
 
         self.id = ko.observable('@Model.ID');
-        self.name = ko.observable('@Model.Name');
-        self.locality = ko.observable('@Model.Locality');
-        self.region = ko.observable('@Model.Region');
+        self.name = ko.observable("@Html.Raw(Model.Name)");
+        self.locality = ko.observable("@Html.Raw(Model.Locality)");
+        self.region = ko.observable("@Html.Raw(Model.Region)");
         self.uri = ko.observable('@Model.Uri');
         self.phone = ko.observable('@Model.Phone');
-        self.description = ko.observable('@Model.Description');
+        self.description = ko.observable("@Html.Raw(Model.Description)");
 
         self.templateToUse = function () {
             return self.edit() ? "breweryEdit" : "breweryDetail";
         };
 
         self.save = function () {
-            debugger;
             if (!window.saving) {
                 window.saving = true;
                 $.ajax({
@@ -109,7 +108,7 @@
             self.images.push(new Image(instagramUrl, active, instagramText, link));
         };
         
-        var url = '@Html.Raw(String.Format("https://api.instagram.com/v1/tags/{0}/media/recent?client_id={1}&count=5&callback=?", Model.TagName, ConfigurationManager.AppSettings["InstagramClientID"]))';
+        @*var url = '@Html.Raw(String.Format("https://api.instagram.com/v1/tags/{0}/media/recent?client_id={1}&count=5&callback=?", Html.Raw(Model.TagName), ConfigurationManager.AppSettings["InstagramClientID"]))';
         $.ajax({
             type: "GET",
             url: url,
@@ -121,7 +120,7 @@
 
                 $('.carousel').css("visibility", "visible");
             }
-        });
+        });*@
     }
 </script>
 <section>

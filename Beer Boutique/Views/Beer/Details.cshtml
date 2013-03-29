@@ -97,7 +97,7 @@
         self.edit = ko.observable(false);
         self.allStyles = ko.observableArray(@Html.Raw(Helpers.ToJSON(Helpers.GetDictionary<BeerStyle>())));
 
-        self.name = ko.observable('@Model.Name');
+        self.name = ko.observable('@Html.Raw(Model.Name)');
         self.styleId = ko.observable('@Model.StyleID');
 
         self.styleId.subscribe(function (newValue) {
@@ -112,10 +112,10 @@
         self.abv = ko.observable('@Model.ABV');
         self.ibu = ko.observable('@Model.IBU');
         self.srm = ko.observable('@Model.SRM');
-        self.description = ko.observable('@Model.Description');
+        self.description = ko.observable("@Html.Raw(Model.Description)");
 
-        self.location = ko.observable('@Model.Location');
-        self.brewery = ko.observable('@Model.Brewery');
+        self.location = ko.observable('@Html.Raw(Model.Location)');
+        self.brewery = ko.observable('@Html.Raw(Model.Brewery)');
         self.breweryId = ko.observable('@Model.BreweryID');
         self.overall = ko.observable('@(Model.Overall / 2)');
 
