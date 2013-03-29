@@ -12,8 +12,8 @@ namespace BeerBoutique.Controllers
     {
         //
         // GET: /Brewery/
-        public ActionResult Index()
-        {
+        public ActionResult Index() {
+            ViewBag.Title = "Breweries - GOMBUI";
             return View();
         }
 
