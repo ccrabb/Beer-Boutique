@@ -9,6 +9,7 @@
           <EntitySet Name="Address" EntityType="BeerBoutiqueModel.Store.Address" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Beer" EntityType="BeerBoutiqueModel.Store.Beer" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Brewery" EntityType="BeerBoutiqueModel.Store.Brewery" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="BreweryEvent" EntityType="BeerBoutiqueModel.Store.BreweryEvent" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="BreweryGeocode" EntityType="BeerBoutiqueModel.Store.BreweryGeocode" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Category" EntityType="BeerBoutiqueModel.Store.Category" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Contact" EntityType="BeerBoutiqueModel.Store.Contact" store:Type="Tables" Schema="dbo" />
@@ -31,6 +32,10 @@
           <AssociationSet Name="FK_Brewery_Contact" Association="BeerBoutiqueModel.Store.FK_Brewery_Contact">
             <End Role="Contact" EntitySet="Contact" />
             <End Role="Brewery" EntitySet="Brewery" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BreweryEvent_Brewery" Association="BeerBoutiqueModel.Store.FK_BreweryEvent_Brewery">
+            <End Role="Brewery" EntitySet="Brewery" />
+            <End Role="BreweryEvent" EntitySet="BreweryEvent" />
           </AssociationSet>
           <AssociationSet Name="FK_BreweryGeocode_Brewery" Association="BeerBoutiqueModel.Store.FK_BreweryGeocode_Brewery">
             <End Role="Brewery" EntitySet="Brewery" />
@@ -115,6 +120,22 @@
           <Property Name="Created" Type="datetime2" Precision="0" />
           <Property Name="Modified" Type="datetime" Nullable="false" />
           <Property Name="OldID" Type="int" />
+        </EntityType>
+        <EntityType Name="BreweryEvent">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="BreweryID" Type="int" Nullable="false" />
+          <Property Name="EventName" Type="nvarchar" Nullable="false" MaxLength="256" />
+          <Property Name="LocationName" Type="nvarchar" MaxLength="256" />
+          <Property Name="AddressID" Type="int" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Created" Type="datetime" />
+          <Property Name="Modified" Type="timestamp" StoreGeneratedPattern="Computed" />
+          <Property Name="ModifiedBy" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="BreweryGeocode">
           <Key>
@@ -271,6 +292,18 @@
             </Principal>
             <Dependent Role="Brewery">
               <PropertyRef Name="ContactID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BreweryEvent_Brewery">
+          <End Role="Brewery" Type="BeerBoutiqueModel.Store.Brewery" Multiplicity="1" />
+          <End Role="BreweryEvent" Type="BeerBoutiqueModel.Store.BreweryEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brewery">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BreweryEvent">
+              <PropertyRef Name="BreweryID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -476,6 +509,11 @@
             <End Role="webpages_Roles" EntitySet="webpages_Roles" />
             <End Role="User" EntitySet="Users" />
           </AssociationSet>
+          <EntitySet Name="BreweryEvents" EntityType="BeerBoutiqueModel.BreweryEvent" />
+          <AssociationSet Name="FK_BreweryEvent_Brewery" Association="BeerBoutiqueModel.FK_BreweryEvent_Brewery">
+            <End Role="Brewery" EntitySet="Breweries" />
+            <End Role="BreweryEvent" EntitySet="BreweryEvents" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Address">
           <Key>
@@ -531,6 +569,7 @@
           <NavigationProperty Name="Beers" Relationship="BeerBoutiqueModel.FK_Beer_Brewery" FromRole="Brewery" ToRole="Beer" />
           <NavigationProperty Name="Contact" Relationship="BeerBoutiqueModel.FK_Brewery_Contact" FromRole="Brewery" ToRole="Contact" />
           <NavigationProperty Name="BreweryGeocodes" Relationship="BeerBoutiqueModel.FK_BreweryGeocode_Brewery" FromRole="Brewery" ToRole="BreweryGeocode" />
+          <NavigationProperty Name="BreweryEvents" Relationship="BeerBoutiqueModel.FK_BreweryEvent_Brewery" FromRole="Brewery" ToRole="BreweryEvent" />
         </EntityType>
         <EntityType Name="BreweryGeocode">
           <Key>
@@ -796,6 +835,35 @@
           <End Type="BeerBoutiqueModel.webpages_Roles" Role="webpages_Roles" Multiplicity="*" />
           <End Type="BeerBoutiqueModel.User" Role="User" Multiplicity="*" />
         </Association>
+        <EntityType Name="BreweryEvent">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="BreweryID" Nullable="false" />
+          <Property Type="String" Name="EventName" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LocationName" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="AddressID" />
+          <Property Type="DateTime" Name="StartDate" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="EndDate" Nullable="false" Precision="3" />
+          <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="Created" Precision="3" />
+          <Property Type="Binary" Name="Modified" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Type="String" Name="ModifiedBy" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Brewery" Relationship="BeerBoutiqueModel.FK_BreweryEvent_Brewery" FromRole="BreweryEvent" ToRole="Brewery" />
+        </EntityType>
+        <Association Name="FK_BreweryEvent_Brewery">
+          <End Type="BeerBoutiqueModel.Brewery" Role="Brewery" Multiplicity="1" />
+          <End Type="BeerBoutiqueModel.BreweryEvent" Role="BreweryEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brewery">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BreweryEvent">
+              <PropertyRef Name="BreweryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1005,6 +1073,23 @@
               <ScalarProperty Name="RoleId" ColumnName="RoleId" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="BreweryEvents">
+            <EntityTypeMapping TypeName="BeerBoutiqueModel.BreweryEvent">
+              <MappingFragment StoreEntitySet="BreweryEvent">
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="Modified" ColumnName="Modified" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="AddressID" ColumnName="AddressID" />
+                <ScalarProperty Name="LocationName" ColumnName="LocationName" />
+                <ScalarProperty Name="EventName" ColumnName="EventName" />
+                <ScalarProperty Name="BreweryID" ColumnName="BreweryID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

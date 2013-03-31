@@ -41,6 +41,7 @@ namespace Models
         public DbSet<webpages_Membership> webpages_Membership { get; set; }
         public DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
         public DbSet<webpages_Roles> webpages_Roles { get; set; }
+        public DbSet<BreweryEvent> BreweryEvents { get; set; }
     
         public virtual int SearchBeer(string query, string userID)
         {

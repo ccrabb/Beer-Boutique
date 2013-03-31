@@ -3,6 +3,7 @@
 }
 @using System.Configuration
 @using BeerBoutique
+@using BeerBoutique.Common
 @model Models.ViewModels.BreweryViewModel
 <script id="breweryDetail" type="text/html">
     <div class="details-header">
@@ -14,6 +15,7 @@
                 <i data-bind="text: region"></i>
             </div>
             <div>
+                <a class="btn btn-success">Add Event</a>
                 @if (User.IsInRole("Geek"))
                 {
                     <a class="btn btn-warning" onclick="window.viewModel.edit(true);">Edit</a>
@@ -32,9 +34,10 @@
 <script id="breweryEdit" type="text/html">
     <div class="details-header">
         <div class="header-container">
+            <a class="cancelEdit" href="#" onclick="window.viewModel.edit(false);">Esc... or click here to cancel</a>
             <input type="text" class="h5" data-bind="value: name" style="width: 450px;" />
             <div class="details-meta">
-                <input type="text" data-bind="value: locality" /><br/>
+                <input type="text" data-bind="value: locality" /><br />
                 <input type="text" data-bind="value: region" />
             </div>
             <div>
@@ -46,15 +49,9 @@
         </div>
     </div>
     <div class="details-content">
-        <ul>
-            <li>
-                <input type="url" data-bind="value: uri" style="width: 440px;" />
-            </li>
-            <li>
-                <input type="tel" data-bind="value: phone" />
-            </li>
-        </ul>
-        <textarea data-bind="value: description" style="width:450px; height:200px;"></textarea>
+        <input type="url" data-bind="value: uri" style="width: 440px;" />
+        <input type="tel" data-bind="value: phone" />
+        <textarea data-bind="value: description" style="width: 450px; height: 200px;"></textarea>
     </div>
 </script>
 <script type="text/javascript">
@@ -65,7 +62,7 @@
         self.text = instagramText;
         self.link = link;
     }
-    
+
     function BreweryViewModel() {
         var self = this;
         self.edit = ko.observable(false);
@@ -101,14 +98,14 @@
                 });
             }
         };
-        
+
         self.images = ko.observableArray([]);
-        
+
         self.addImage = function (instagramUrl, active, instagramText, link) {
             self.images.push(new Image(instagramUrl, active, instagramText, link));
         };
-        
-        @*var url = '@Html.Raw(String.Format("https://api.instagram.com/v1/tags/{0}/media/recent?client_id={1}&count=5&callback=?", Html.Raw(Model.TagName), ConfigurationManager.AppSettings["InstagramClientID"]))';
+
+        var url = '@Html.Raw(String.Format("https://api.instagram.com/v1/tags/{0}/media/recent?client_id={1}&count=5&callback=?", Html.Raw(Model.TagName), ConfigurationManager.AppSettings["InstagramClientID"]))';
         $.ajax({
             type: "GET",
             url: url,
@@ -119,33 +116,34 @@
                 });
 
                 $('.carousel').css("visibility", "visible");
+            },
+            error: function (jxhr, msg, err) {
+                $('div[data-target="#myCarousel"').each(function (index, result) {
+                    self.addImage("#", index == 0, "", '@Url.Content("~/Content/images/beertoast.jpg")');
+                });
             }
-        });*@
-    }
+        });
+        }
 </script>
 <section>
     <div class="container">
         <div class="details">
             <div class="row">
-                <div class="span7" data-bind="template: {name: templateToUse}">
-                </div>
-                <div class="span4">
-                    <div id="myCarousel" class="carousel" style="visibility: hidden; height:400px;">
+                <div class="span2">
+                    <div id="myCarousel" class="carousel" style="visibility: hidden;">
                         <ol class="carousel-indicators">
                             <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                             <li data-target="#myCarousel" data-slide-to="1"></li>
                             <li data-target="#myCarousel" data-slide-to="2"></li>
-                            <li data-target="#myCarousel" data-slide-to="3"></li>
-                            <li data-target="#myCarousel" data-slide-to="4"></li>
                         </ol>
                         <!-- Carousel items -->
                         <div class="carousel-inner">
                             <div data-bind="foreach: images">
                                 <div class="item" data-bind="css: { active : isActive }">
                                     <img data-bind="attr: {src: url, alt: text }" />
-                                    <div class="carousel-caption">
+                                    @*<div class="carousel-caption">
                                         <p><a data-bind="attr: { href: link }" target="_new"><span data-bind="text: text"></span></a></p>
-                                    </div>
+                                    </div>*@
                                 </div>
                             </div>
                         </div>
@@ -153,6 +151,11 @@
                         <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
                         <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
                     </div>
+                </div>
+                <div class="span4" data-bind="template: {name: templateToUse}">
+                </div>
+                <div class="span5">
+                    @Html.StaticMapImage(Url.Encode(Model.FullAddress))
                 </div>
             </div>
         </div>
@@ -183,6 +186,15 @@
         window.viewModel = new BreweryViewModel();
         ko.applyBindings(window.viewModel);
 
+        $(document).keyup(function (e) {
+
+            if (window.viewModel.edit()) {
+                if (e.keyCode == 27) {
+                    window.viewModel.edit(false);
+                }
+            }
+        });
+
         $('#tableBeers').dataTable({
             "bProcessing": true,
             "bServerSide": true,
@@ -191,12 +203,11 @@
             "bFilter": false,
             "bInfo": false,
             "aoColumnDefs": [{
-                    "aTargets": [0],
-                    "fnRender": function (o, val) {
-                        //console.log(o.aData);
-                        return "<a href='/Beer/Details/" + o.aData[4] + "'>" + val + "</a>";
-                    }
-                },
+                "aTargets": [0],
+                "fnRender": function (o, val) {
+                    return "<a href='/Beer/Details/" + o.aData[4] + "'>" + val + "</a>";
+                }
+            },
                 {
                     "aTargets": [3],
                     "fnRender": function (o, val) {

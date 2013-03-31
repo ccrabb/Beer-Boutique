@@ -232,19 +232,25 @@
             <h2>Similar Beers</h2>
         </div>
     </div>
-    <div class="container">
-        <div class="row-fluid">
-            <div class="span4">
-                @{ Html.RenderPartial("_Summary", Model.SimilarBeers[0]); }
-            </div>
-            <div class="span4">
-                @{ Html.RenderPartial("_Summary", Model.SimilarBeers[1]); }
-            </div>
-            <div class="span4">
-                @{ Html.RenderPartial("_Summary", Model.SimilarBeers[2]); }
+    @if (Model.SimilarBeers.Any()) {
+        <div class="container">
+            <div class="row-fluid">
+                <div class="span4">
+                    @{ Html.RenderPartial("_Summary", Model.SimilarBeers[0]); }
+                </div>
+                @if (Model.SimilarBeers.Count() > 1) {
+                    <div class="span4">
+                        @{ Html.RenderPartial("_Summary", Model.SimilarBeers[1]); }
+                    </div>
+                }
+                @if (Model.SimilarBeers.Count() > 2) {
+                    <div class="span4">
+                        @{ Html.RenderPartial("_Summary", Model.SimilarBeers[2]); }
+                    </div>
+                }
             </div>
         </div>
-    </div>
+    }
 </section>
 <section>
     <div class="container">

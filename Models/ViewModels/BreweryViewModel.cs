@@ -39,6 +39,11 @@ namespace Models.ViewModels
             get { return this.Name.Replace(" ", String.Empty).Replace(".", String.Empty); }
         }
 
+        [DataMember]
+        public string FullAddress {
+            get { return String.Join(" ", Address1, Locality, Region, PostalCode, Country); }
+        }
+
         public override string ToString() {
             return Name;
         }

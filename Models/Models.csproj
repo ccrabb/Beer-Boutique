@@ -72,6 +72,9 @@
     <Compile Include="Brewery.cs">
       <DependentUpon>BeerBoutique.tt</DependentUpon>
     </Compile>
+    <Compile Include="BreweryEvent.cs">
+      <DependentUpon>BeerBoutique.tt</DependentUpon>
+    </Compile>
     <Compile Include="BreweryGeocode.cs">
       <DependentUpon>BeerBoutique.tt</DependentUpon>
     </Compile>

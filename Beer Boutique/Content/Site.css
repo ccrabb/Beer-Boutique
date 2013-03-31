@@ -8,7 +8,7 @@
     background: white;
 }
 
-    .details ul::before {
+    /*.details ul::before {
         -webkit-box-shadow: inset 0 16px 8px -20px rgba(0, 0, 0, 0.4);
         -moz-box-shadow: inset 0 15px 8px -20px rgba(0, 0, 0, 0.4);
         -webkit-mask-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0), black 20%, black 80%, rgba(0, 0, 0, 0) 100%);
@@ -21,10 +21,9 @@
         left: 0;
         display: block;
         border-top: 1px solid rgba(0, 0, 0, 0.15);
-    }
+    }*/
 
 .details-header {
-    padding-left: 10px;
     padding-bottom: 5px;
 }
 
@@ -35,11 +34,11 @@
 }
 
 .details-content {
-    padding-left: 50px;
+    padding-left: 0px;
 }
 
 .header-container {
-    margin-left: 50px;
+    margin-left: 0px;
 }
 
     .header-container > h5 {
@@ -74,6 +73,11 @@
 
     .nav.actions > li > a:hover {
         border: 2px solid #999;
+    }
+
+    .cancelEdit {
+        font-size: 10px;
+        color: #777777;
     }
 
 
@@ -165,7 +169,6 @@ p.login {
     position: relative;
     margin-bottom: 18px;
     line-height: 1;
-    width: 306px;
 }
 
 .carousel-inner {

@@ -5,14 +5,14 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="c8008976bd2441a19e591928d01759e5" Name="Diagram1">
-        <EntityTypeShape EntityType="BeerBoutiqueModel.Address" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BeerBoutiqueModel.Beer" Width="1.5" PointX="7.5" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BeerBoutiqueModel.Brewery" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BeerBoutiqueModel.BreweryGeocode" Width="1.5" PointX="7.5" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BeerBoutiqueModel.Category" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BeerBoutiqueModel.Contact" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BeerBoutiqueModel.Rating" Width="1.5" PointX="9.75" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BeerBoutiqueModel.Style" Width="1.5" PointX="5.25" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BeerBoutiqueModel.Address" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BeerBoutiqueModel.Beer" Width="1.5" PointX="7.5" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BeerBoutiqueModel.Brewery" Width="1.5" PointX="5.25" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BeerBoutiqueModel.BreweryGeocode" Width="1.5" PointX="7.5" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BeerBoutiqueModel.Category" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BeerBoutiqueModel.Contact" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BeerBoutiqueModel.Rating" Width="1.5" PointX="9.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BeerBoutiqueModel.Style" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
         <AssociationConnector Association="BeerBoutiqueModel.FK_Contact_Address" ManuallyRouted="false" />
         <AssociationConnector Association="BeerBoutiqueModel.FK_Beer_Brewery" ManuallyRouted="false" />
         <AssociationConnector Association="BeerBoutiqueModel.FK_Beer_Style" ManuallyRouted="false" />
@@ -20,15 +20,17 @@
         <AssociationConnector Association="BeerBoutiqueModel.FK_Brewery_Contact" ManuallyRouted="false" />
         <AssociationConnector Association="BeerBoutiqueModel.FK_BreweryGeocode_Brewery" ManuallyRouted="false" />
         <AssociationConnector Association="BeerBoutiqueModel.FK_Style_Category" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="BeerBoutiqueModel.User" Width="1.5" PointX="7.5" PointY="14.625" />
+        <EntityTypeShape EntityType="BeerBoutiqueModel.User" Width="1.5" PointX="7.5" PointY="0.75" />
         <AssociationConnector Association="BeerBoutiqueModel.FK_Rating_Users" />
-        <EntityTypeShape EntityType="BeerBoutiqueModel.Review" Width="1.5" PointX="12.75" PointY="4.875" />
+        <EntityTypeShape EntityType="BeerBoutiqueModel.Review" Width="1.5" PointX="12.75" PointY="6" />
         <AssociationConnector Association="BeerBoutiqueModel.FK_Review_Beer" />
         <AssociationConnector Association="BeerBoutiqueModel.FK_Review_Users" />
-        <EntityTypeShape EntityType="BeerBoutiqueModel.webpages_Membership" Width="1.5" PointX="9.75" PointY="0.75" />
-        <EntityTypeShape EntityType="BeerBoutiqueModel.webpages_OAuthMembership" Width="1.5" PointX="0.75" PointY="9.75" />
-        <EntityTypeShape EntityType="BeerBoutiqueModel.webpages_Roles" Width="1.5" PointX="5.25" PointY="14.875" />
+        <EntityTypeShape EntityType="BeerBoutiqueModel.webpages_Membership" Width="1.5" PointX="9.75" PointY="1.625" />
+        <EntityTypeShape EntityType="BeerBoutiqueModel.webpages_OAuthMembership" Width="1.5" PointX="0.75" PointY="1.625" />
+        <EntityTypeShape EntityType="BeerBoutiqueModel.webpages_Roles" Width="1.5" PointX="5.25" PointY="2.125" />
         <AssociationConnector Association="BeerBoutiqueModel.webpages_UsersInRoles" />
+        <EntityTypeShape EntityType="BeerBoutiqueModel.BreweryEvent" Width="1.5" PointX="7.5" PointY="15.25" />
+        <AssociationConnector Association="BeerBoutiqueModel.FK_BreweryEvent_Brewery" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

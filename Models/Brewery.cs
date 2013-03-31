@@ -18,6 +18,7 @@ namespace Models
         {
             this.Beers = new HashSet<Beer>();
             this.BreweryGeocodes = new HashSet<BreweryGeocode>();
+            this.BreweryEvents = new HashSet<BreweryEvent>();
         }
     
         public int ID { get; set; }
@@ -32,5 +33,6 @@ namespace Models
         public virtual ICollection<Beer> Beers { get; set; }
         public virtual Contact Contact { get; set; }
         public virtual ICollection<BreweryGeocode> BreweryGeocodes { get; set; }
+        public virtual ICollection<BreweryEvent> BreweryEvents { get; set; }
     }
 }
