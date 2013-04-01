@@ -35,7 +35,7 @@
     <div class="details-header">
         <div class="header-container">
             <a class="cancelEdit" href="#" onclick="window.viewModel.edit(false);">Esc... or click here to cancel</a>
-            <input type="text" class="h5" data-bind="value: name" style="width: 450px;" />
+            <input type="text" class="h5" data-bind="value: name" style="width: 100%;" />
             <div class="details-meta">
                 <input type="text" data-bind="value: locality" /><br />
                 <input type="text" data-bind="value: region" />
@@ -49,9 +49,9 @@
         </div>
     </div>
     <div class="details-content">
-        <input type="url" data-bind="value: uri" style="width: 440px;" />
+        <input type="url" data-bind="value: uri" style="width: 100%;" />
         <input type="tel" data-bind="value: phone" />
-        <textarea data-bind="value: description" style="width: 450px; height: 200px;"></textarea>
+        <textarea data-bind="value: description" style="width: 100%; height: 200px;"></textarea>
     </div>
 </script>
 <script type="text/javascript">
